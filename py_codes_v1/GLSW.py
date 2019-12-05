@@ -17,6 +17,7 @@ sub_idx = cf.sub_idx
 f0 = cf.f0
 f1 = cf.f1
 f2 = cf.f2
+A_mat = cf.A_mat
 tHij = exi.tHij
 thi = exi.thi
 
@@ -106,8 +107,27 @@ def sw_hamiltonian(q):
     ham[2*num_sub:4*num_sub, 0:2*num_sub] = 0.5*ham21
     
     return ham
+
+
+def eigensystem(q):
+    
+    hlsw = sw_hamiltonian(q)
+    ham = A_mat @ hlsw
+    eigval, eigvec = np.linalg.eig(ham)
+    eigval = np.real(eigval)
+    idx = eigval.argsort()[::-1]
+    eigval = eigval[idx]
+    eigvec = eigvec[idx]
+    tmp = eigvec.conj().T @ A_mat @ eigvec
+    
+    for kk in range(4*num_sub):
+        eigvec[:, kk] = eigvec[:, kk]/np.sqrt(np.abs(tmp[kk, kk]))
+        
+    return 2.0*eigval, eigvec
+
                 
-                
+
+               
     
                 
                 
