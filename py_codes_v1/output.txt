@@ -1,0 +1,5 @@
+0.0
+find new local minima, updates!
+finishing the 0 th random experiment!
+time elpase in this experiment is 7.484314918518066 seconds
+the return flag is 4
