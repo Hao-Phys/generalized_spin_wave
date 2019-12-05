@@ -120,6 +120,7 @@ def eigensystem(q):
     eigvec = eigvec[idx]
     tmp = eigvec.conj().T @ A_mat @ eigvec
     
+    # para-renormalization of Bogoliubov eigenvectors
     for kk in range(4*num_sub):
         eigvec[:, kk] = eigvec[:, kk]/np.sqrt(np.abs(tmp[kk, kk]))
         
