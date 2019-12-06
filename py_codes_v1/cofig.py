@@ -7,7 +7,8 @@ model parameters
 # accept input fiels
 # run the program as python{} xxx.py input.txt
 
-inFile = sys.argv[1]
+#inFile = sys.argv[1]
+inFile = 'input.txt'
 paras = np.loadtxt(inFile)
 
 kelvin_to_meV = 11.602
