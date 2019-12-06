@@ -2,4 +2,4 @@
 py_codes_v1/__pycache__
 
 #Do not track compiled python files
-*pyc
+*.pyc
