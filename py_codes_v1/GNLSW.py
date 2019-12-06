@@ -9,11 +9,14 @@ Created on Thu Dec  5 11:24:29 2019
 import numpy as np
 import cofig as cf
 import ex_info as exi
+import GLSW
 
 f0 = cf.f0
 f1 = cf.f1
 f2 = cf.f2
 f3 = cf.f3
+sub_idx = cf.sub_idx
+delta_ij = cf.delta_ij
 num_bond = cf.num_bond
 num_sub = cf.num_sub
 
@@ -68,21 +71,82 @@ def phase_fun(q, vec, typ):
 # the basic ingredients
                                 
 def Fa_fun(band1, band2, band3, X1, X2, X3, \
-           U21_q1, U11_q2, U11_q3, q3, vec, typ):
-        
+           Ubov1, Ubov2, Ubov3, q3, vec, typ):
+    
+    U21_q1 = Ubov1[2*num_sub:, :2*num_sub]
+    U11_q2 = Ubov2[:2*num_sub, :2*num_sub]
+    U11_q3 = Ubov3[:2*num_sub, :2*num_sub]    
     phase = phase_fun(q3, vec, typ)
     value = U21_q1[X1, band1] * U11_q2[X2, band2] * U11_q3[X3, band3] * phase
     return value
     
 def Fb_fun(band1, band2, band3, X1, X2, X3, \
-           U11_mq1, U21_mq2, U21_mq3, q3, vec, typ):
+           Ubov1, Ubov2, Ubov3, q3, vec, typ):
     
+    U11_mq1 = Ubov1[:2*num_sub, :2*num_sub].conj()
+    U21_mq2 = Ubov2[2*num_sub:, :2*num_sub].conj()
+    U21_mq3 = Ubov3[2*num_sub:, :2*num_sub].conj()
     phase = phase_fun(-q3, vec, typ)
     value = U11_mq1[X1, band1] * U21_mq2[X2, band2] * U21_mq3[X3, band3] * phase
     return value
 
 
+def Fc_fun(band1, band2, band3, X1, X2, X3, \
+           Ubov1, Ubov2, Ubov3, q1, q2, q3, vec, typ):
     
+    U11_mq1 = Ubov1[:2*num_sub, :2*num_sub].conj()
+    U21_mq1 = Ubov1[2*num_sub:, :2*num_sub].conj()
+    U21_mq2 = Ubov2[2*num_sub:, :2*num_sub].conj()
+    U11_q3 = Ubov3[:2*num_sub, :2*num_sub]
+    U21_q3 = Ubov3[2*num_sub:, :2*num_sub]
+    phase1 = phase_fun(q3, vec, typ)
+    phase2 = phase_fun(-q1, vec, typ)
+    phase3 = phase_fun(-q2, vec, typ)    
+    value = U11_mq1[X1, band1]*U21_mq2[X2, band2]*U11_q3[X3, band3]*phase1 \
+          + U21_q3[X1, band3]*U21_mq2[X2, band2]*U21_mq1[X3, band1]*phase2 \
+          + U11_mq1[X1, band1]*U11_q3[X2, band3]*U21_mq2[X3, band2]*phase3          
+    return value
+    
+
+def Fd_fun(band1, band2, band3, X1, X2, X3, \
+           Ubov1, Ubov2, Ubov3, q1, q2, q3, vec, typ):
+    
+    U11_mq1 = Ubov1[:2*num_sub, :2*num_sub].conj()
+    U21_mq1 = Ubov1[2*num_sub:, :2*num_sub].conj()
+    U11_q2 = Ubov2[:2*num_sub, :2*num_sub]
+    U21_q2 = Ubov2[2*num_sub:, :2*num_sub]
+    U11_q3 = Ubov3[:2*num_sub, :2*num_sub]
+    U21_q3 = Ubov3[2*num_sub:, :2*num_sub]
+    phase1 = phase_fun(q3, vec, typ)
+    phase2 = phase_fun(-q1, vec, typ)
+    #phase3 = phase_fun(q3, vec, typ)
+    value = U11_mq1[X1, band1]*U11_q2[X2, band2]*U11_q3[X3, band3]*phase1 \
+          + U21_q3[X1, band3]*U11_q2[X2, band2]*U21_mq1[X3, band1]*phase2 \
+          + U21_q2[X1, band2]*U21_mq1[X2, band1]*U11_q3[X3, band3]*phase1
+    return value
+    
+# the vertex functions    
+def V1_unsym(band1, band2, band3, q1, q2, q3):
+    V1 = 0.0
+    
+    tmp, U_q1 = GLSW.eigensystem(q1)
+    tmp, U_mq1
+    for bond in range(num_bond):
+        bond_vec = delta_ij[:, bond]
+        sub1 = sub_idx[bond, 0]
+        sub2 = sub_idx[bond, 1]
+        
+        for N in range(2):
+            for Np in range(2):
+                
+                In = 4*N + sub1
+                Inp = 4*Np + sub1
+                Jn = 4*N + sub2
+                Jnp = 4*Np + sub2
+                Fa = Fa_fun(band1, band2, band3)
+                
+        
+
         
             
             
