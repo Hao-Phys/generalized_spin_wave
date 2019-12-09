@@ -460,6 +460,12 @@ def V2_cubic(band1, band2, band3, q1, q2, q3):
     return V2
                     
                 
+# Self-energy calculations
+def fun_integrand_decay(ndim, xx, ncomp, ff, userdata):
+    """
+    the integrand for the decay vertices
+    """
+    
         
                     
                 
