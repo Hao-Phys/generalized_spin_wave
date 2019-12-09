@@ -52,53 +52,53 @@ def sw_hamiltonian(q):
                 
                 #ham11 
                 tmp = 2.0*f2mmp @ THij @ f0
-                ham11[4*flavor1+sub1, 4*flavor2+sub1] += tmp
+                ham11[num_sub*flavor1+sub1, num_sub*flavor2+sub1] += tmp
                 
                 tmp = np.conj(f1m) @ THij @ f1mp * phase
-                ham11[4*flavor1+sub1, 4*flavor2+sub2] += tmp
+                ham11[num_sub*flavor1+sub1, num_sub*flavor2+sub2] += tmp
                 
                 tmp = f1mp @ THij @ np.conj(f1m) * cphase
-                ham11[4*flavor1+sub2, 4*flavor2+sub1] += tmp
+                ham11[num_sub*flavor1+sub2, num_sub*flavor2+sub1] += tmp
                 
                 tmp = 2.0 * f0 @ THij @ f2mmp
-                ham11[4*flavor1+sub2, 4*flavor2+sub2] += tmp
+                ham11[num_sub*flavor1+sub2, num_sub*flavor2+sub2] += tmp
         
                 #ham22
                 tmp = 2.0 * np.conj(f2mmp) @ THij @ f0
-                ham22[4*flavor1+sub1, 4*flavor2+sub1] += tmp
+                ham22[num_sub*flavor1+sub1, num_sub*flavor2+sub1] += tmp
                 
                 tmp = f1m @ THij @ np.conj(f1mp) * phase
-                ham22[4*flavor1+sub1, 4*flavor2+sub2] += tmp
+                ham22[num_sub*flavor1+sub1, num_sub*flavor2+sub2] += tmp
                 
                 tmp = np.conj(f1mp) @ THij @ f1m * cphase
-                ham22[4*flavor1+sub2, 4*flavor2+sub1] += tmp
+                ham22[num_sub*flavor1+sub2, num_sub*flavor2+sub1] += tmp
                 
                 tmp = 2.0 * f0 @ THij @ np.conj(f2mmp)
-                ham22[4*flavor1+sub2, 4*flavor2+sub2] += tmp
+                ham22[num_sub*flavor1+sub2, num_sub*flavor2+sub2] += tmp
                 
                 #ham12 
                 tmp = np.conj(f1m) @ THij @ np.conj(f1mp) * phase
-                ham12[4*flavor1+sub1, 4*flavor2+sub2] += tmp
+                ham12[num_sub*flavor1+sub1, num_sub*flavor2+sub2] += tmp
                 
                 tmp = np.conj(f1mp) @ THij @ np.conj(f1m) * cphase
-                ham12[4*flavor1+sub2, 4*flavor2+sub1] += tmp
+                ham12[num_sub*flavor1+sub2, num_sub*flavor2+sub1] += tmp
                 
                 #ham21
                 tmp = f1m @ THij @ f1mp * phase
-                ham21[4*flavor1+sub1, 4*flavor2+sub2] += tmp
+                ham21[num_sub*flavor1+sub1, num_sub*flavor2+sub2] += tmp
                 
                 tmp = f1mp @ THij @ f1m * cphase
-                ham21[4*flavor1+sub2, 4*flavor2+sub1] += tmp
+                ham21[num_sub*flavor1+sub2, num_sub*flavor2+sub1] += tmp
                 
             for sublat in range(num_sub):
                 
                 tH = thi[sublat, :]
                 
                 tmp = 2.0 * tH @ f2mmp
-                hos11[4*flavor1+sublat, 4*flavor2+sublat] += tmp
+                hos11[num_sub*flavor1+sublat, num_sub*flavor2+sublat] += tmp
                 
                 tmp = 2.0 * tH @ np.conj(f2mmp)
-                hos22[4*flavor1+sublat, 4*flavor2+sublat] += tmp
+                hos22[num_sub*flavor1+sublat, num_sub*flavor2+sublat] += tmp
                 
     ham = np.zeros((4*num_sub, 4*num_sub), dtype=complex)          
     ham[0:2*num_sub, 0:2*num_sub] = 0.5*(ham11+hos11)
@@ -125,6 +125,29 @@ def eigensystem(q):
         eigvec[:, kk] = eigvec[:, kk]/np.sqrt(np.abs(tmp[kk, kk]))
         
     return 2.0*eigval, eigvec
+
+
+def greenfunction(omega, q):
+    """
+    This function calculates the green function of H-P bosons
+    with momentum q and energy range omega
+    omega can be either a single energy or a discrete energy range.
+    """
+    
+    len_omega = len(omega)
+    
+    gf = np.zeros([len_omega, 4*num_sub, 4*num_sub], dtype=complex)
+    ek, ubov = eigensystem(q)
+    ek_m, ubov_m = eigensystem(-q)
+    
+    ubov_m = ubov_m.conj()
+    minus_mat = np.zeros([4*num_sub, 4*num_sub], dtype=complex)
+    plus_mat = np.zeros([4*num_sub, 4*num_sub], dtype=complex)
+    
+    u11 = ubov[:2*num_sub, :2*num_sub]
+    
+
+    
 
                 
 
