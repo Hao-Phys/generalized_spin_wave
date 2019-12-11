@@ -127,7 +127,7 @@ def Fa_symm(X1, X2, X3, \
                  vec, typ)
     value += tmp
     
-    return value # avoid overcouting
+    return value 
     
     
 def Fb_fun(X1, X2, X3, \
@@ -178,7 +178,7 @@ def Fb_symm(X1, X2, X3, \
                  vec, typ)
     value += tmp
     
-    return value  # avoid overcouting
+    return value  
     
     
 def Fc_fun(X1, X2, X3, \
@@ -215,7 +215,7 @@ def Fc_symm(X1, X2, X3, \
            vec, typ)
     value += tmp
     
-    return value # avoid overcouting
+    return value 
 
 
 
@@ -278,9 +278,8 @@ def V1_cubic(band1, band2, band3, q1, q2, q3):
       for Np in range(2):
         
  
-        for bond in range(12):
+        for bond in range(num_bond):
             
-        
            bond_vec = delta_ij[:, bond]
            sub1 = sub_idx[bond, 0]
            sub2 = sub_idx[bond, 1]
@@ -296,16 +295,16 @@ def V1_cubic(band1, band2, band3, q1, q2, q3):
                           q1, q2, q3, bond_vec, 0)
             
            tFb1 = Fb_symm(Jn, Jn, Jnp, \
-                          band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-                          -q1, -q2, -q3, bond_vec, 0)
+                          band3, band2, band1, Ubov3, Ubov2, Ubov1, \
+                          -q3, -q2, -q1, bond_vec, 0)
             
            tFa2 = Fa_symm(In, In, Inp, \
                           band1, band2, band3, Ubov1, Ubov2, Ubov3, \
                           q1, q2, q3, bond_vec, 0)
             
            tFb2 = Fb_symm(In, In, Inp, \
-                          band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-                          -q1, -q2, -q3, bond_vec, 0)
+                          band3, band2, band1, Ubov3, Ubov2, Ubov1, \
+                          -q3, -q2, -q1, bond_vec, 0)
             
            V1 += JJJ[bond, N, Np]*tFa1 + (JJJ[bond, N, Np]*tFb1).conj() \
                 +III[bond, N, Np]*tFa2 + (III[bond, N, Np]*tFb2).conj()
@@ -320,43 +319,36 @@ def V1_cubic(band1, band2, band3, q1, q2, q3):
                                q1, q2, q3, bond_vec, 2)
                 
                 tFb1 = Fb_symm(Jn, Jnp, Im, \
-                               band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-                               -q1, -q2, -q3, bond_vec, 2)
+                               band3, band2, band1, Ubov3, Ubov2, Ubov1, \
+                               -q3, -q2, -q1, bond_vec, 2)
                 
                 tFa2 = Fa_symm(In, Inp, Jm, \
                                band1, band2, band3, Ubov1, Ubov2, Ubov3, \
                                q1, q2, q3, bond_vec, 1)
                 
                 tFb2 = Fb_symm(In, Inp, Jm, \
-                               band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-                               -q1, -q2, -q3, bond_vec, 1)
+                               band3, band2, band1, Ubov3, Ubov2, Ubov1, \
+                               -q3, -q2, -q1, bond_vec, 1)
                 
                 V1 += 2.0*(JJI[bond, N, Np, M]*tFa1 \
                            + (JJI[bond, N, Np, M]*tFb1).conj() \
                          + IIJ[bond, N, Np, M]*tFa2 \
                            + (IIJ[bond, N, Np, M]*tFb2).conj())
                     
-# =============================================================================
-#         for sublat in range(num_sub):
-#             
-#             In = num_sub*N + sublat
-#             Inp = num_sub*Np + sublat
-#             factor1 = thi[sublat] @ f3[:, N, Np]
-# # =============================================================================
-# #             if sublat == 2:
-# #                 print("N=", N, "Np=", Np)
-# #                 print("factor1=", factor1)
-# # =============================================================================
-#             factor2 = thi[sublat] @ f3[:, N, Np].conj()
-#             tFa = Fa_symm(In, In, Inp, \
-#                           band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-#                           q1, q2, q3, 0.0, 0)
-#             tFb = Fb_symm(In, In, Inp, \
-#                           band1, band2, band3, Ubov1, Ubov2, Ubov3, \
-#                           -q1, -q2, -q3, 0.0, 0)
-#             
-#             V1 += factor1*tFa + factor2*tFb.conj()
-# =============================================================================
+        for sublat in range(num_sub):
+            
+            In = num_sub*N + sublat
+            Inp = num_sub*Np + sublat
+            factor1 = thi[sublat] @ f3[:, N, Np]
+            factor2 = thi[sublat] @ f3[:, N, Np].conj()
+            tFa = Fa_symm(In, In, Inp, \
+                          band1, band2, band3, Ubov1, Ubov2, Ubov3, \
+                          q1, q2, q3, 0.0, 0)
+            tFb = Fb_symm(In, In, Inp, \
+                          band3, band2, band1, Ubov3, Ubov2, Ubov1, \
+                          -q3, -q2, -q1, 0.0, 0)
+            
+            V1 += factor1*tFa + factor2*tFb.conj()
 
     return V1
 
@@ -395,16 +387,16 @@ def V2_cubic(band1, band2, band3, q1, q2, q3):
                                q1, q2, q3, bond_vec, 0)
                 
                 tFd1 = Fd_symm(Jn, Jn, Jnp, \
-                               band1, band2, band3, Ubov1, Ubovm2, Ubovm3, \
-                               -q1, -q2, -q3, bond_vec, 0)
+                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                               -q3, -q2, -q1, bond_vec, 0)
                 
                 tFc2 = Fc_symm(In, In, Inp, \
                                band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                q1, q2, q3, bond_vec, 0)
               
                 tFd2 = Fd_symm(In, In, Inp, \
-                               band1, band2, band3, Ubov1, Ubovm2, Ubovm3, \
-                               -q1, -q2, -q3, bond_vec, 0)
+                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                               -q3, -q2, -q1, bond_vec, 0)
                 
                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
                     + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()
@@ -419,52 +411,48 @@ def V2_cubic(band1, band2, band3, q1, q2, q3):
                                    q1, q2, q3, bond_vec, 2)
                     
                     tFd1 = Fd_symm(Jn, Jnp, Im, \
-                                   band1, band2, band3, Ubov1, Ubovm2, Ubovm3, \
-                                   -q1, -q2, -q3, bond_vec, 2)
+                                   band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                                   -q3, -q2, -q1, bond_vec, 2)
                     
                     tFc2 = Fc_symm(In, Inp, Jm, \
                                    band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                    q1, q2, q3, bond_vec, 1)
                     
                     tFd2 = Fd_symm(In, Inp, Jm, \
-                                   band1, band2, band3, Ubov1, Ubovm2, Ubovm3, \
-                                   -q1, -q2, -q3, bond_vec, 1)
+                                   band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                                   -q3, -q2, -q1, bond_vec, 1)
                     
                     V2 += 2.0*(JJI[bond, N, Np, M]*tFc1 \
                                + (JJI[bond, N, Np, M]*tFd1).conj() \
                              + IIJ[bond, N, Np, M]*tFc2 \
                                + (IIJ[bond, N, Np, M]*tFd2).conj())
                     
+            for sublat in range(num_sub):
+                
+                In = num_sub*N + sublat
+                Inp = num_sub*Np + sublat
+                
+                factor1 = thi[sublat] @ f3[:, N, Np]
 # =============================================================================
-#             for sublat in range(num_sub):
-#                 
-#                 In = num_sub*N + sublat
-#                 Inp = num_sub*Np + sublat
-#                 
-#                 factor1 = thi[sublat] @ f3[:, N, Np]
 #                 if (sublat == 2):
 #                     print("N = ", N, "Np = ", Np)
 #                     print(factor1)
-#                 factor2 = thi[sublat] @ f3[:, N, Np].conj()
-#                 
-#                 tFc = Fc_symm(In, In, Inp, \
-#                               band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
-#                               q1, q2, q3, 0.0, 0)
-#                 tFd = Fd_symm(In, In, Inp, \
-#                               band1, band2, band3, Ubov1, Ubovm2, Ubovm3, \
-#                               -q1, -q2, -q3, 0.0, 0)
-#                 
-#                 V2 += factor1*tFc + factor2*tFd.conj()
 # =============================================================================
+                factor2 = thi[sublat] @ f3[:, N, Np].conj()
+                
+                tFc = Fc_symm(In, In, Inp, \
+                              band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
+                              q1, q2, q3, 0.0, 0)
+                tFd = Fd_symm(In, In, Inp, \
+                              band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                              -q3, -q2, -q1, 0.0, 0)
+                
+                V2 += factor1*tFc + factor2*tFd.conj()
                 
     return V2
                     
                 
-# Self-energy calculations
-def fun_integrand_decay(ndim, xx, ncomp, ff, userdata):
-    """
-    the integrand for the decay vertices
-    """
+
     
         
                     

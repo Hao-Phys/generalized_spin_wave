@@ -1,5 +1,5 @@
 import numpy as np
-import sys
+#import sys
 """
 model parameters
 """
@@ -53,6 +53,9 @@ num_bond = 88
 # broadening factor
 
 broadening = 0.12
+
+# convergence factor
+convergence = 0.1
 
 # the A-matrix
 
@@ -238,6 +241,15 @@ f3[5, 0, 0] = -1.0/np.sqrt(2.0)
 f3[5, 1, 0] = -1.0/np.sqrt(2.0)
 f3[6, 0, 0] = 1.0/np.sqrt(2.0)
 f3[6, 1, 0] = 1.0/np.sqrt(2.0)
+
+
+# change of basis functions
+def kxyTok12(kx, ky, kz):
+    k1 = (kx + np.sqrt(3.0)*ky)/np.pi
+    k2 = (np.sqrt(3.0)*ky - kx)/(4.0*np.pi)
+    k3 = 2.0*kz/np.pi
+    
+    return k1, k2, k3
 
 
 
