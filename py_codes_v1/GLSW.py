@@ -24,10 +24,11 @@ tHij = exi.tHij
 thi = exi.thi
 Rmat = SU3rot.R_mat
 
-# the linear spin wave Hamiltonian
 
 def sw_hamiltonian(q):
-    
+    """
+    the spin wave hamiltonian in momentum space
+    """
     
     ham11 = np.zeros((2*num_sub, 2*num_sub), dtype=complex)
     ham22 = np.zeros((2*num_sub, 2*num_sub), dtype=complex)
@@ -165,60 +166,100 @@ def greenfunction(omega, q):
         plus_mat[2*num_sub:, :2*num_sub] = np.outer(u11_m[:, band], u21_m[:, band].conj())
         plus_mat[2*num_sub:, 2*num_sub:] = np.outer(u11_m[:, band], u11_m[:, band].conj())
         
-        for i in range(4*num_sub):
-            for j in range(4*num_sub):
-                
-                tmp1 = np.reshape(omega - ek[band] + 1j*broadening, len_omega)
-                tmp2 = np.reshape(omega + ek_m[band] + 1j*broadening, len_omega)
-                
-                gf[:, i, j] += - minus_mat[i, j]/tmp1 + plus_mat[i, j]/tmp2
-                
+        tmp1 = np.reshape(omega - ek[band] + 1j*broadening, len_omega)
+        tmp2 = np.reshape(omega + ek_m[band] + 1j*broadening, len_omega)
+        
+        # use this to avoid loop 
+        gf += - minus_mat/(tmp1[:, None, None]) + plus_mat/(tmp2[:, None, None])
         
     return gf
+               
+# =============================================================================
+#         for i in range(4*num_sub):
+#             for j in range(4*num_sub):
+#                 
+#                 tmp1 = np.reshape(omega - ek[band] + 1j*broadening, len_omega)
+#                 tmp2 = np.reshape(omega + ek_m[band] + 1j*broadening, len_omega)
+#                 
+#                 gf[:, i, j] += - minus_mat[i, j]/tmp1 + plus_mat[i, j]/tmp2
+# =============================================================================
                 
+        
+                
+
+def int_mat(sub1, sub2, m, mp):
+    
+    """
+    calculates the matrices that will be used in the intensity calculation,
+    actually no need to compute this for each q, so maybe this can be optimized
+    and stored in a separate file
+    
+    """
+    
+    R1t = Rmat[sub1, :, :].T.reshape(8, 8)
+    R2 = Rmat[sub2, :, :].reshape(8, 8)
+    r1t = R1t[:3, :]
+    r2 = R2[:, :3]    
+    
+    f1m = f1[:, m]
+    f1mp = f1[:, mp]
+
+    mat1 = r1t @ np.outer(f1m, f1mp) @ r2
+    mat2 = r1t @ np.outer(f1m.conj(), f1mp.conj()) @ r2
+    mat3 = r1t @ np.outer(f1m, f1mp.conj()) @ r2
+    mat4 = r1t @ np.outer(f1m.conj(), f1mp) @ r2    
+    
+    return mat1, mat2, mat3, mat4
+
 
 def intensity(omega, qx, qy, qz):
     
-    sc_inten = 0.0
+    """ 
+    output single-crystal neutron intensity for given qx, qy, and qz
+    """
     
     qq = np.array([qx, qy, qz])
     q1, q2, q3 = cf.kxyTok12(qx, qy, qz)
     len_omega = len(omega)
     q = np.array([q1, q2, q3])
     
+    chi_mat = np.zeros((len_omega, 3, 3), dtype=complex)
+    
     gf = greenfunction(omega, q)
     gf11 = gf[:, :2*num_sub, :2*num_sub]
     gf12 = gf[:, :2*num_sub, 2*num_sub:]
     gf21 = gf[:, 2*num_sub:, :2*num_sub]
-    gf22 = gf[:, 2*num_sub:, 2*num_sub:]
+    gf22 = gf[:, 2*num_sub:, 2*num_sub:] 
     
     for sub1 in range(num_sub):
         for sub2 in range(num_sub):
-            
-            R1 = Rmat[sub1, :, :].T
-            R2 = Rmat[sub2, :, :].T
-            
-            for mu0 in range(3):
-                for nu0 in range(3):
+                        
+            for m in range(2):
+                for mp in range(2):
                     
-                    for alpha in range(8):
-                        for beta in range(8):
-                            
-                            factor1 = R1[mu0, alpha]
-                            factor2 = R2[nu0, beta]
-                            
-                            for m in range(2):
-                                for mp in range(2):
-                                    
-                                    fam = f1[alpha, m]
-                                    fbmp = f1[beta, m]
-                                    cfam = fam.conj()
-                                    cfbmp = fbmp.conj()
-                                    
-                                    tmp = -(1/num_sub) \
-                                          *factor1*factor2 \
-                                          *(fam*fbmp*)
-                                    
+                    mat1, mat2, mat3, mat4 = int_mat(sub1, sub2, m, mp)
+                    
+                    element1 = gf12[:, 4*m+sub1, 4*mp+sub2]
+                    element2 = gf21[:, 4*m+sub1, 4*mp+sub2]
+                    element3 = gf11[:, 4*m+sub1, 4*mp+sub2]
+                    element4 = gf22[:, 4*m+sub1, 4*mp+sub2]
+                    
+                    chi_mat += (-1/num_sub)\
+                            * (element1[:, None, None]*mat1 + element2[:, None, None]*mat2 \
+                             + element3[:, None, None]*mat3 + element4[:, None, None]*mat4) 
+                             
+    sqw_mat = -2.0 * np.imag(chi_mat)
+    ff = cf.formfactor(qq)
+    sc_inten = ff*cf.projector(qx, qy, qz, sqw_mat)
+    
+    return sc_inten
+                     
+            
+    
+    
+    
+    
+
             
   
             

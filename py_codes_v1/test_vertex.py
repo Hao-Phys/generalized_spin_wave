@@ -6,10 +6,10 @@ Created on Fri Dec  6 16:05:00 2019
 @author: Hao
 """
 
-import GNLSW_vertex
-#import GLSW
+import GNLSW_vertex as vertex
+import GLSW
 import numpy as np
-#import cofig as cf
+import cofig as cf
 import ex_info as exi
 
 
@@ -18,14 +18,19 @@ q1 = np.array([0.0, 0.0, 0.0])
 q2 = np.array([0.0, 0.0, 0.0])
 q3 = -(q1+q2)
 num_sub = 4
-band1 = 0
+band1 = 1
 band2 = 1
-band3 = 2
-thi = exi.thi
+band3 = 1
+#for band2 in range(2*num_sub):
+#    for band3 in range(2*num_sub):
+        
+print("band2=", band2, "band3=", band3)
+v1 = vertex.V2_cubic(band1, band2, band3, q1, q2, q3)
+        #v2 = vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
+print("decay=", v1)
+        
 
 
-v1 = GNLSW_vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
-v2 = GNLSW_vertex.V2_cubic(band1, band2, band3, q1, q2, q3)
 #eig, evec = GLSW.eigensystem(q0)
 
 
@@ -62,14 +67,22 @@ v2 = GNLSW_vertex.V2_cubic(band1, band2, band3, q1, q2, q3)
 #         value1 += U11_mq1[4*m+sublat, band1].conj()*U11_q2[4*m+sublat, band2]
 #         
 #     for mp in range(2):
-#         print("real space cof is", thi[sublat, :]@ cf.f3[:, 1, mp])
-#         print("=====")
-#         print("the matrix is", U11_q3[4*mp+sublat, band3])
+# # =============================================================================
+# #         print("real space cof is", thi[sublat, :]@ cf.f3[:, 1, mp])
+# #         print("=====")
+# #         print("the matrix is", U11_q3[4*mp+sublat, band3])
+# # =============================================================================
 #         value2 += (thi[sublat, :] @ cf.f3[:, 1, mp])*U11_q3[4*mp+sublat, band3]
 #             
 #     return value1, value2
 # =============================================================================
 
-#val1, val2 = testvert(q1, q2, q3, 0, 1, 2, 3)
-print("source=", abs(v1))
-print("decay=", abs(v2))
+#val1 = vertex.test_vertex(0, 1, 2, q1, q2, q3)
+
+# =============================================================================
+# print(abs(val2))
+# =============================================================================
+# =============================================================================
+# print("source=", abs(v1))
+# print("decay=", abs(v2))
+# =============================================================================

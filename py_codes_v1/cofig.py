@@ -237,10 +237,10 @@ f3[3, 0, 1] = -1j/(2.0*np.sqrt(2.0))
 f3[3, 1, 1] = -1j/(2.0*np.sqrt(2.0))
 f3[4, 0, 1] = 1.0/(2.0*np.sqrt(2.0))
 f3[4, 1, 1] = 1.0/(2.0*np.sqrt(2.0))
-f3[5, 0, 0] = -1.0/np.sqrt(2.0)
-f3[5, 1, 0] = -1.0/np.sqrt(2.0)
-f3[6, 0, 0] = 1.0/np.sqrt(2.0)
-f3[6, 1, 0] = 1.0/np.sqrt(2.0)
+f3[5, 0, 0] = -0.5
+f3[5, 1, 0] = -0.5
+f3[6, 0, 0] = 0.5*1j
+f3[6, 1, 0] = 0.5*1j
 
 
 # change of basis functions
@@ -250,6 +250,61 @@ def kxyTok12(kx, ky, kz):
     k3 = 2.0*kz/np.pi
     
     return k1, k2, k3
+
+def k12Tokxy(k1, k2, k3):
+    kx = np.pi * (0.5*k1 - 2.0*k2)
+    ky = np.pi/np.sqrt(3) * (0.5*k1 + 2*k2)
+    kz = 2.0*np.pi*k3/4.0
+    
+    return kx, ky, kz
+# form factor
+
+def formfactor(q):
+    """
+    the form factor of Fe2+ inons
+    """
+    
+    A  = 0.0263
+    aa = 34.9597
+    B  = 0.3668
+    bb = 15.9435 
+    C  = 0.6188	
+    cc = 5.5935
+    D  = -0.0119
+    
+    s_sq = ((q[0]/(4.05))**2 + (q[1]/(4.05))**2 \
+    + (q[2]/6.76)**2)/(4.0*np.pi)**2;
+            
+    ff= (A*np.exp(-aa*s_sq) + B*np.exp(-bb*s_sq) + C*np.exp(-cc*s_sq)+ D)**2
+    
+    return ff
+
+def projector(qx, qy, qz, sqw_mat):
+    """
+    project out parallel components
+    """
+    #len_omega = sqw_mat.shape[0]
+    #inten = np.zeros(len_omega)
+    inten = 0.0
+    q = np.array([qx, qy, qz])
+    norm_sq = qx**2 + qy**2 + qz**2
+    
+    if norm_sq == 0:
+        inten = sqw_mat[:, 0, 0] + sqw_mat[:, 1, 1] + sqw_mat[:, 2, 2]
+    else:
+        
+        for mu0 in range(3):
+            for nu0 in range(3):
+            
+                if (mu0 == nu0):
+                   inten += (1.0 - q[mu0]*q[nu0]/norm_sq) * sqw_mat[:, mu0, nu0]
+                else:
+                   inten += - q[mu0]*q[nu0]/norm_sq * sqw_mat[:, mu0, nu0]
+                
+    return inten
+    
+    
+    
 
 
 
