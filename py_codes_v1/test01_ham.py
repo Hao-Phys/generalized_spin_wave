@@ -10,11 +10,14 @@ import GLSW
 import numpy as np
 import cofig as cf
 
-qq = np.array([0.2, 0.12, 0.0])
+qq = np.array([0.1, 0.2, 0.3])
 hsw = GLSW.sw_hamiltonian(qq)
-omega = np.array([0.13, 0.45])
+omega = np.array([4.427])
 #gf1 = -(omega + 1j*cf.broadening) * cf.A_mat + 2.0*hsw
-chi = GLSW.intensity(omega, 0.1, 0.0,0.0)
+qx, qy, qz = cf.k12Tokxy(qq[0], qq[1], qq[2]) 
+chi, sqw = GLSW.intensity(omega, qx, qy, qz)
+#print(chi)
+print(sqw)
 #eigval, eigvec = GLSW.eigensystem(qq)
 #resd = gf1 @ gf2[0, :, :]
 #print(resd - np.eye(16))
