@@ -54,7 +54,7 @@ num_bond = 88
 
 broadening = 0.12
 
-# convergence factor
+# convergence factor, can be adjusted to the specific problem
 convergence = 0.1
 
 # the A-matrix
@@ -293,6 +293,21 @@ def projector(qx, qy, qz, sqw_mat):
         inten = sqw_mat[:, 0, 0] + sqw_mat[:, 1, 1] + sqw_mat[:, 2, 2]
     else:
         
+# =============================================================================
+        """
+        projector using the numpy ufunc, currently does not win over the loop
+        below.
+        
+        """
+#
+#       project_mat = np.array([[1.0-qx**2/norm_sq, -qx*qy/norm_sq, -qx*qz/norm_sq], \
+#                                 [-qy*qx/norm_sq, 1.0-qy**2/norm_sq, -qy*qz/norm_sq], \
+#                                 [-qz*qx/norm_sq, -qz*qy/norm_sq, 1.0-qz**2/norm_sq]])
+#     
+#         inten_mat = project_mat[None, :, :] * sqw_mat
+#         inten = np.sum(np.sum(inten_mat, axis=2), axis=1)
+#         
+# =============================================================================
         for mu0 in range(3):
             for nu0 in range(3):
             

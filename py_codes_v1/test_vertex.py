@@ -13,21 +13,34 @@ import cofig as cf
 import ex_info as exi
 
 
-q0 = np.array([0.34, 0.18, 0.0])
-q1 = np.array([0.0, 0.0, 0.0])
-q2 = np.array([0.0, 0.0, 0.0])
+#q0 = np.array([0.34, 0.18, 0.0])
+q1 = np.array([0.23, -0.55, 0.0])
+q2 = np.array([1.33, 0.87, 0.0])
 q3 = -(q1+q2)
+
+tmp, ubov1 = GLSW.eigensystem(q1)
+print(tmp)
+tmp, ubov2 = GLSW.eigensystem(q2)
+tmp, ubov3 = GLSW.eigensystem(q3)
+
+tmp, ubovm1 = GLSW.eigensystem(-q1)
+tmp, ubovm2 = GLSW.eigensystem(-q2)
+tmp, ubovm3 = GLSW.eigensystem(-q3)
+
 num_sub = 4
+
 band1 = 1
-band2 = 1
-band3 = 1
-#for band2 in range(2*num_sub):
-#    for band3 in range(2*num_sub):
+
+
+for band2 in range(2*num_sub):
+   for band3 in range(2*num_sub):
         
-print("band2=", band2, "band3=", band3)
-v1 = vertex.V2_cubic(band1, band2, band3, q1, q2, q3)
+       
+       print("band2=", band2, "band3=", band3)
+       v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
+                            ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
         #v2 = vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
-print("decay=", v1)
+       #print("decay=", abs(v1))
         
 
 
@@ -78,7 +91,7 @@ print("decay=", v1)
 # =============================================================================
 
 #val1 = vertex.test_vertex(0, 1, 2, q1, q2, q3)
-
+           
 # =============================================================================
 # print(abs(val2))
 # =============================================================================

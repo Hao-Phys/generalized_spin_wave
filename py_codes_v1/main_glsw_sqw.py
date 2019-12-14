@@ -34,6 +34,10 @@ intensity_sc1 = np.zeros((Nw, lenk1))
 #intensity_sc2 = np.zeros((Nw, lenk1))
 #intensity_sc3 = np.zeros((Nw, lenk1))
 
+"""
+when adding the magnetic field in experiments,
+one domain was selected out
+"""
 
 for flag in range(lenk1):
     
