@@ -8,7 +8,8 @@ Created on Sat Dec 14 20:36:07 2019
 
 import numpy as np
 import GLSW
-import GNLSW_vertex as vertex
+import GNLSW_vertex_new as vertex
+import GNLSW_vertex as vertex_old
 import cofig as cf
 import time
 
@@ -22,23 +23,43 @@ k = np.array([0.23,0.54,0.0])
 qmk = q - k
 
 st = time.time()
-result = 0.0
+
 ek, ubov_k = GLSW.eigensystem(k)
 eqmk, ubov_qmk = GLSW.eigensystem(qmk)
 tmp, ubov_mk = GLSW.eigensystem(-k)
 tmp, ubov_mqmk = GLSW.eigensystem(-qmk)
 
-
-for band2 in range(2*num_sub):
-    for band3 in range(2*num_sub):
-        
-        vd = vertex.V2_cubic(0, band2, band3, q, k, qmk, \
+V2_old = vertex_old.V2_cubic_bm(0, 1, 2, q, k, qmk, \
                              ubov_q, ubov_k, ubov_qmk, \
                              ubov_mq, ubov_mk, ubov_mqmk)
-            
-        tmp = vd.conj() * vd/(omega - ek[band2] - eqmk[band3] + 1j*cf.convergence)
-        result += tmp
-        
+    
+V2 = vertex.V_cubic_decay(q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
+                     ubov_mq, ubov_mk, ubov_mqmk)
+    
+    
+print('the old vertex =', V2_old)
+print('the new vertex =', V2[0, 1, 2])
+
 et = time.time()        
-print(result)
+# print(result)
 print('evaluate integrand once takes time = ', et-st, 's')
+# =============================================================================
+# re = ubov_k[0, :]
+# tmp1 =  np.outer(ubov_q[0, :], ubov_mq[0, :]) * re[:, None, None]
+# tmp = np.outer(ubov_q[0, :], ubov_mq[0, :]) * ubov_k[0, :][:, None, None]
+# print(tmp.shape)
+# print(tmp1-tmp)
+# =============================================================================
+# =============================================================================
+# for band2 in range(2*num_sub):
+#     for band3 in range(2*num_sub):
+#         
+#         vd = vertex.V2_cubic(0, band2, band3, q, k, qmk, \
+#                              ubov_q, ubov_k, ubov_qmk, \
+#                              ubov_mq, ubov_mk, ubov_mqmk)
+#             
+#         tmp = vd.conj() * vd/(omega - ek[band2] - eqmk[band3] + 1j*cf.convergence)
+#         result += tmp
+#         
+
+# =============================================================================

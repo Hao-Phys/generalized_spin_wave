@@ -478,7 +478,7 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
     for N in range(2):
         for Np in range(2):
            
-           for bond in range(1):
+           for bond in range(12):
                 
                 bond_vec = delta_ij[:, bond]
                 sub1 = sub_idx[bond, 0]
