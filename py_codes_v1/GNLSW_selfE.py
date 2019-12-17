@@ -42,6 +42,8 @@ def Sigma_decay(q, omega, band1):
     """
     calculates the self energy from the decay channel
     """
+    eq, ubov_q = GLSW.eigensystem(q)
+    tmp, ubov_mq = GLSW.eigensystem(-q)
     
     # define the integrand as a nested function
     def integrand_decay(ndim, xx, ncopm, ff, userdata):
@@ -55,19 +57,16 @@ def Sigma_decay(q, omega, band1):
         k1, k2, k3 = [xx[i] for i in range(ndim.contents.value)]
         k = np.array([k1, k2, k3])
         qmk = q - k
-        
-        eq, ubov_q = GLSW.eigensystem(q)
+               
         ek, ubov_k = GLSW.eigensystem(k)
         eqmk, ubov_qmk = GLSW.eigensystem(qmk)
-        
-        tmp, ubov_mq = GLSW.eigensystem(-q)
         tmp, ubov_mk = GLSW.eigensystem(-k)
         tmp, ubov_mqmk = GLSW.eigensystem(-qmk)
         
-        for band2 in range(2*num_sub):
-            for band3 in range(2*num_sub):
+        for band2 in range(1):
+            for band3 in range(1):
                         
-                vd = vertex.V2_cubic(band1, band2, band3, q, k, qmk, \
+                vd = vertex.V2_cubic_bm(band1, band2, band3, q, k, qmk, \
                                      ubov_q, ubov_k, ubov_qmk, \
                                      ubov_mq, ubov_mk, ubov_mqmk)
                 
@@ -89,8 +88,8 @@ def Sigma_decay(q, omega, band1):
                  nvec=1)
     """
 
-    #res = pycuba.Vegas(integrand_decay, NDIM, epsabs = EPSABS, \
-    #                  verbose=2, ncomp=2, maxeval=1000)
+    res = pycuba.Vegas(integrand_decay, NDIM, epsabs = 1e-3, \
+                      verbose=2, ncomp=2, maxeval=1000)
     
     """
     
@@ -110,13 +109,11 @@ def Sigma_decay(q, omega, band1):
  }
   """
 
-    print_results('Vegas', pycuba.Vegas(integrand_decay, NDIM, epsabs = EPSABS, \
-                           verbose=2, ncomp=2, maxeval=1000))
+    print_results('Vegas', res)
     # get values of the keyword 'result' (in the dictionary)
     # first element is the result of the integration
-   # rres = res.get('results')[0] 
-    #iintegral = rres.get('integral')
-    iintegral = 0.0
+    rres = res.get('results')[0] 
+    iintegral = rres.get('integral')
     
     return iintegral
     

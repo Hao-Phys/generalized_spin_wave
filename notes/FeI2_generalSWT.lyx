@@ -2687,11 +2687,69 @@ The cubic vertex functions
 \end_layout
 
 \begin_layout Section
-One-loop correction 
+Cubic vertex rules for Numpy calculations
 \end_layout
 
 \begin_layout Standard
+The bond cubic Hamiltonian is written as, 
+\end_layout
 
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\sum_{\langle i,j\rangle\in S_{\text{bonds}}}\mathcal{H}_{ij}^{(3)} & =\frac{1}{\sqrt{N_{u}}}\sum_{\{\bm{q}_{i}\}}\delta(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3})\bigg[\sum_{m,n,n'=-1,0}\big\{2\big(\mathcal{J}(f_{m}^{(1)},f_{nn'}^{(2)})b_{\bar{\bm{q}}_{1},(\Theta_{j},n)}^{\dagger}b_{\bm{q}_{2},(\Theta_{j},n')}b_{\bm{q}_{3},(\Theta_{i},m)}e^{-i\bm{q}_{3}\cdot\bm{\delta}_{ij}}+h.c.\big)\\
+ & +2\big(\mathcal{J}(f_{nn'}^{(2)},f_{m}^{(1)})b_{\bar{\bm{q}}_{1},(\Theta_{i},n)}^{\dagger}b_{\bm{q}_{2},(\Theta_{i},n')}b_{\bm{q}_{3},(\Theta_{j},m)}e^{i\bm{q}_{3}\cdot\bm{\delta}_{ij}}+h.c.)\big\}\\
+ & +\sum_{n,n'=-1,0}\big\{\big(\mathcal{J}(f^{(0)},f_{nn'}^{(3)})b_{\bar{\bm{q}}_{1},(\Theta_{j},n)}^{\dagger}b_{\bm{q}_{2},(\Theta_{j},n)}b_{\bm{q}_{3},(\Theta_{j},n')}+h.c.\big)\\
+ & +\big(\mathcal{J}(f_{nn'}^{(3)},f^{(0)})b_{\bar{\bm{q}}_{1},(\Theta_{i},n)}^{\dagger}b_{\bm{q}_{2},(\Theta_{i},n)}b_{\bm{q}_{3},(\Theta_{i},n')}+h.c.\big)\big\}\bigg].
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In the above expression, the coefficients come from the real space,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+JJI[num_{bond},flavor1,flavor2,flavor3]\ \ IIJ[num_{bond},flavor1,flavor2,flavor3]
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+JJJ[num_{bond},flavor1,flavor2]\ \ III[num_{bond},flavor1,flavor2].
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+After Bogoliubov transform, the result of each term can be stored in four
+ 
+\begin_inset Formula $(2\times2\times2\times(2*num_{sub})\times(2*num_{sub})\times(2*num_{sub})$
+\end_inset
+
+ or 
+\begin_inset Formula $(2\times2\times(2*num_{sub})\times(2*num_{sub})\times(2*num_{sub})$
+\end_inset
+
+ arrays depending on their type.
+ 
+\end_layout
+
+\begin_layout Section
+One-loop correction 
 \end_layout
 
 \end_body

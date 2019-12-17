@@ -9,7 +9,7 @@ Created on Thu Dec  5 11:24:29 2019
 import numpy as np
 import cofig as cf
 import ex_info as exi
-import GLSW
+#import GLSW
 
 f0 = cf.f0
 f1 = cf.f1
@@ -475,11 +475,10 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
 #     tmp, Ubovm3 = GLSW.eigensystem(-q3)
 # =============================================================================
     
-    tmpp = 0.0
     for N in range(2):
         for Np in range(2):
            
-           for bond in range(12):
+           for bond in range(1):
                 
                 bond_vec = delta_ij[:, bond]
                 sub1 = sub_idx[bond, 0]
@@ -490,26 +489,24 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                 Inp = num_sub*Np + sub1
                 Jnp = num_sub*Np + sub2
                 
-# =============================================================================
-#                 tFc1 = Fc_symm(Jn, Jn, Jnp, \
-#                                band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
-#                                q1, q2, q3, bond_vec, 0)
-#                 
-#                 tFd1 = Fd_symm(Jn, Jn, Jnp, \
-#                                band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-#                                -q3, -q2, -q1, bond_vec, 0)
-#                 
-#                 tFc2 = Fc_symm(In, In, Inp, \
-#                                band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
-#                                q1, q2, q3, bond_vec, 0)
-#               
-#                 tFd2 = Fd_symm(In, In, Inp, \
-#                                band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-#                                -q3, -q2, -q1, bond_vec, 0)
-#                 
-#                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
-#                     + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()
-# =============================================================================
+                tFc1 = Fc_symm(Jn, Jn, Jnp, \
+                               band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
+                               q1, q2, q3, bond_vec, 0)
+                
+                tFd1 = Fd_symm(Jn, Jn, Jnp, \
+                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                               -q3, -q2, -q1, bond_vec, 0)
+                
+                tFc2 = Fc_symm(In, In, Inp, \
+                               band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
+                               q1, q2, q3, bond_vec, 0)
+              
+                tFd2 = Fd_symm(In, In, Inp, \
+                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                               -q3, -q2, -q1, bond_vec, 0)
+                
+                V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
+                    + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()
                     
                     
                 for M in range(2):
@@ -537,12 +534,16 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                                + (JJI[bond, N, Np, M]*tFd1).conj() \
                              + IIJ[bond, N, Np, M]*tFc2 \
                                + (IIJ[bond, N, Np, M]*tFd2).conj())
-                    if bond == 6:
-                        tmpp += 2.0*(JJI[bond, N, Np, M]*tFc1 \
-                               + (JJI[bond, N, Np, M]*tFd1).conj() \
-                             + IIJ[bond, N, Np, M]*tFc2 \
-                               + (IIJ[bond, N, Np, M]*tFd2).conj())
-    print(abs(tmpp))
+                        
+                        
+# =============================================================================
+#                     if bond == 6:
+#                         tmpp += 2.0*(JJI[bond, N, Np, M]*tFc1 \
+#                                + (JJI[bond, N, Np, M]*tFd1).conj() \
+#                              + IIJ[bond, N, Np, M]*tFc2 \
+#                                + (IIJ[bond, N, Np, M]*tFd2).conj())
+#     print(abs(tmpp))
+# =============================================================================
            
                     
 # =============================================================================
