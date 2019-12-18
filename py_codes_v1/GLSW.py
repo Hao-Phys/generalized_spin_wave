@@ -24,7 +24,6 @@ tHij = exi.tHij
 thi = exi.thi
 Rmat = SU3rot.R_mat
 
-
 def sw_hamiltonian(q):
     """
     the spin wave hamiltonian in momentum space

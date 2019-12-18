@@ -210,10 +210,12 @@ def Fc_symm(X1, X2, X3, \
            vec, typ)
     value += tmp
     
-    tmp = Fc_fun(X1, X2, X3, \
-           band2, band1, band3, Ubov2, Ubov1, Ubov3, q2, q1, q3, \
-           vec, typ)
-    value += tmp
+# =============================================================================
+#     tmp = Fc_fun(X1, X2, X3, \
+#            band2, band1, band3, Ubov2, Ubov1, Ubov3, q2, q1, q3, \
+#            vec, typ)
+#     value += tmp
+# =============================================================================
     
     return value 
 
@@ -436,22 +438,24 @@ def V2_cubic(band1, band2, band3, q1, q2, q3,
                              + IIJ[bond, N, Np, M]*tFc2 \
                                + (IIJ[bond, N, Np, M]*tFd2).conj())
                     
-            for sublat in range(num_sub):
-                
-                In = num_sub*N + sublat
-                Inp = num_sub*Np + sublat
-                
-                factor1 = thi[sublat] @ f3[:, N, Np]
-                factor2 = thi[sublat] @ f3[:, N, Np].conj()
-                
-                tFc = Fc_symm(In, In, Inp, \
-                              band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
-                              q1, q2, q3, 0.0, 0)
-                tFd = Fd_symm(In, In, Inp, \
-                              band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-                              -q3, -q2, -q1, 0.0, 0)
-                
-                V2 += factor1*tFc + factor2*tFd.conj()
+# =============================================================================
+#             for sublat in range(num_sub):
+#                 
+#                 In = num_sub*N + sublat
+#                 Inp = num_sub*Np + sublat
+#                 
+#                 factor1 = thi[sublat] @ f3[:, N, Np]
+#                 factor2 = thi[sublat] @ f3[:, N, Np].conj()
+#                 
+#                 tFc = Fc_symm(In, In, Inp, \
+#                               band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
+#                               q1, q2, q3, 0.0, 0)
+#                 tFd = Fd_symm(In, In, Inp, \
+#                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+#                               -q3, -q2, -q1, 0.0, 0)
+#                 
+#                 V2 += factor1*tFc + factor2*tFd.conj()
+# =============================================================================
                 
     return V2
 
@@ -493,20 +497,30 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                                band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                q1, q2, q3, bond_vec, 0)
                 
-                tFd1 = Fd_symm(Jn, Jn, Jnp, \
-                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-                               -q3, -q2, -q1, bond_vec, 0)
+# =============================================================================
+#                 tFd1 = Fd_symm(Jn, Jn, Jnp, \
+#                                band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+#                                -q3, -q2, -q1, bond_vec, 0)
+# =============================================================================
+                tFd1 = 0.0
                 
                 tFc2 = Fc_symm(In, In, Inp, \
                                band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                q1, q2, q3, bond_vec, 0)
               
-                tFd2 = Fd_symm(In, In, Inp, \
-                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-                               -q3, -q2, -q1, bond_vec, 0)
+# =============================================================================
+#                 tFd2 = Fd_symm(In, In, Inp, \
+#                                band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+#                                -q3, -q2, -q1, bond_vec, 0)
+# =============================================================================
+                tFd2 = 0.0
                 
+# =============================================================================
+#                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
+#                     + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()
+# =============================================================================
                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
-                    + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()
+                    + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()            
                     
                     
                 for M in range(2):
@@ -518,32 +532,37 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                                    band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                    q1, q2, q3, bond_vec, 2)
                     
-                    tFd1 = Fd_symm(Jn, Jnp, Im, \
-                                   band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-                                   -q3, -q2, -q1, bond_vec, 2)
+# =============================================================================
+#                     tFd1 = Fd_symm(Jn, Jnp, Im, \
+#                                    band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+#                                    -q3, -q2, -q1, bond_vec, 2)
+# =============================================================================
+                    tFd1 = 0.0
                     
                     tFc2 = Fc_symm(In, Inp, Jm, \
                                    band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
                                    q1, q2, q3, bond_vec, 1)
-                    
-                    tFd2 = Fd_symm(In, Inp, Jm, \
-                                   band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-                                   -q3, -q2, -q1, bond_vec, 1)
-                    
-                    V2 += 2.0*(JJI[bond, N, Np, M]*tFc1 \
-                               + (JJI[bond, N, Np, M]*tFd1).conj() \
-                             + IIJ[bond, N, Np, M]*tFc2 \
-                               + (IIJ[bond, N, Np, M]*tFd2).conj())
-                        
-                        
 # =============================================================================
-#                     if bond == 6:
-#                         tmpp += 2.0*(JJI[bond, N, Np, M]*tFc1 \
+#                     
+#                     tFd2 = Fd_symm(In, Inp, Jm, \
+#                                    band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+#                                    -q3, -q2, -q1, bond_vec, 1)
+# =============================================================================
+                    tFd2 = 0.0
+                    
+# =============================================================================
+#                     V2 += 2.0*(JJI[bond, N, Np, M]*tFc1 \
 #                                + (JJI[bond, N, Np, M]*tFd1).conj() \
 #                              + IIJ[bond, N, Np, M]*tFc2 \
 #                                + (IIJ[bond, N, Np, M]*tFd2).conj())
-#     print(abs(tmpp))
 # =============================================================================
+                    V2 += 2.0*(JJI[bond, N, Np, M]*tFc1 \
+                               + (JJI[bond, N, Np, M]*tFd1).conj() \
+                             + IIJ[bond, N, Np, M]*tFc2 \
+                               + (IIJ[bond, N, Np, M]*tFd2).conj())                    
+                        
+                        
+
            
                     
 # =============================================================================

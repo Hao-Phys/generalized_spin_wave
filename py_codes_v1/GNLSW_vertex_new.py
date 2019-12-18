@@ -86,7 +86,6 @@ def phase_fun(q, vec, typ):
         print("wrong type number")
         return
     
-
 def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
     
     """
@@ -125,111 +124,132 @@ def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
     
     def Fcd_mat_symm(sub1, sub2, bond_vec, typ):
         
-        Fc_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
-                               dtype=complex)
-        Fd_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
-                               dtype=complex)
             
         phase1 = phase_fun(q3, bond_vec, typ)
         phase2 = phase_fun(-q1, bond_vec, typ)
         phase3 = phase_fun(-q2, bond_vec, typ)
         
-        for N in range(2):           
-            X1 = 4*N + sub1
+        if (typ == 0):
             
-            for Np in range(2):              
-                               
-                if (typ == 0):
-                   # the jjj and iii terms with only two flavor indices
-                   X2 = X1
-                   X3 = 4*Np + sub1
-                   
-                   Fc_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
+           Fc_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
                                            2*num_sub), dtype=complex)
-                   Fd_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
+           Fd_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
                                            2*num_sub), dtype=complex)
+           for N in range(2):
+               X1 = num_sub*N + sub1
+               X2 = X1
+               
+               for Np in range(2):
                    
-                   # Fc_mat_symm is symmetric under the permutation of 
-                   # the first two momenta
-                       
-                   tmp1 = np.outer(u11_m1[X1, :], u21_m2[X2, :]) \
-                           * u11_3[X3, :][:, None, None] * phase1 \
-                         + np.outer(u21_3[X1, :], u21_m2[X2, :]) \
-                           * u21_m1[X3, :][:, None, None] * phase2 \
-                         + np.outer(u11_m1[X1, :], u11_3[X2, :]) \
-                           * u21_m2[X3, :][:, None, None]* phase3 \
-                         + np.outer(u11_m2[X1, :], u21_m1[X2, :]) \
-                           * u11_3[X3, :][:, None, None] * phase1 \
-                         + np.outer(u21_3[X1, :], u21_m1[X2, :]) \
-                           * u21_m2[X3, :][:, None, None] * phase3 \
-                         + np.outer(u11_m2[X1, :], u11_3[X2, :]) \
-                           * u21_m1[X3, :][:, None, None]* phase2 
+                   X3 = num_sub*Np + sub1
+                   
+                   tmp1 = np.outer(u11_m1[X1, :], u21_m2[X2, :])[:, :, None] \
+                           * u11_3[X3, :][None, None, :] * phase1 \
+                           + np.outer(u21_m1[X3, :], u21_m2[X2, :])[:, :, None] \
+                           * u21_3[X1, :][None, None, :] * phase2 \
+                           + np.outer(u11_m1[X1, :], u21_m2[X3, :])[:, :, None] \
+                           * u11_3[X2, :][None, None, :] * phase3 
+# =============================================================================
+#                            + np.outer(u11_m1[X2, :], u21_m2[X1, :])[:, :, None] \
+#                            * u11_3[X3, :][None, None, :] * phase1 \
+#                            + np.outer(u21_m1[X2, :], u21_m2[X3, :])[:, :, None] \
+#                            * u21_3[X1, :][None, None, :] * phase3 \
+#                            + np.outer(u11_m1[X3, :], u21_m2[X1, :])[:, :, None] \
+#                            * u11_3[X2, :][None, None, :] * phase2                       
+# =============================================================================
                     
                    Fc_mat_symm[N, Np, ...] = tmp1
                    
-                   # Fd_mat_symm is symmetric under the permutation of 
-                   # the last two momenta                   
-                   
-                   tmp2 = np.outer(u11_3[X1, :], u11_m2[X2, :]) \
-                           * u11_m1[X3, :][:, None, None] * phase2 \
-                        + np.outer(u21_m1[X1, :], u11_m2[X2, :]) \
-                           * u21_3[X3, :][:, None, None] * phase1 \
-                        + np.outer(u21_m2[X1, :], u21_3[X2, :]) \
-                           * u11_m1[X3, :][:, None, None] * phase2 \
-                        + np.outer(u11_3[X1, :], u11_m1[X2, :]) \
-                           * u11_m2[X3, :][:, None, None] * phase3 \
-                        + np.outer(u21_m2[X1, :], u11_m1[X2, :]) \
-                           * u21_3[X3, :][:, None, None] * phase1 \
-                        + np.outer(u21_m1[X1, :], u21_3[X2, :]) \
-                           * u11_m2[X3, :][:, None, None] * phase3
+                   tmp2 = np.outer(u11_3[X1, :], u11_m2[X2, :])[:, :, None] \
+                           * u11_m1[X3, :][None, None, :] * phase2 \
+                        + np.outer(u21_m1[X1, :], u11_m2[X2, :])[:, :, None] \
+                           * u21_3[X3, :][None, None, :] * phase1 \
+                        + np.outer(u21_m2[X1, :], u21_3[X2, :])[:, :, None] \
+                           * u11_m1[X3, :][None, None, :]* phase2 \
+                        + np.outer(u11_3[X1, :], u11_m1[X2, :])[:, :, None] \
+                           * u11_m2[X3, :][None, None, :] * phase3 \
+                        + np.outer(u21_m2[X1, :], u11_m1[X2, :])[:, :, None] \
+                           * u21_3[X3, :][None, None, :] * phase1 \
+                        + np.outer(u21_m1[X1, :], u21_3[X2, :])[:, :, None] \
+                           * u11_m2[X3, :][None, None, :] * phase3
                            
                    Fd_mat_symm[N, Np, ...] = tmp2
-                        
-                else:
-                    # jji and iij terms with three flavor indices
-                    X2 = 4*Np + sub1
-                    
-                    for M in range(2):
-                        
-                        X3 = 4*M +sub2
-                        
-                        tmp1 = np.outer(u11_m1[X1, :], u21_m2[X2, :]) \
-                           * u11_3[X3, :][:, None, None] * phase1 \
-                         + np.outer(u21_3[X1, :], u21_m2[X2, :]) \
-                           * u21_m1[X3, :][:, None, None] * phase2 \
-                         + np.outer(u11_m1[X1, :], u11_3[X2, :]) \
-                           * u21_m2[X3, :][:, None, None]* phase3 \
-                         + np.outer(u11_m2[X1, :], u21_m1[X2, :]) \
-                           * u11_3[X3, :][:, None, None] * phase1 \
-                         + np.outer(u21_3[X1, :], u21_m1[X2, :]) \
-                           * u21_m2[X3, :][:, None, None] * phase3 \
-                         + np.outer(u11_m2[X1, :], u11_3[X2, :]) \
-                           * u21_m1[X3, :][:, None, None]* phase2 
-                    
-                        Fc_mat_symm[N, Np, M, ...] = tmp1
+                   
+           return Fc_mat_symm, Fd_mat_symm
+        
+        else:
+            
+           Fc_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                               dtype=complex)
+           Fd_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                               dtype=complex)
+              
+           for N in range(2):
+              X1 = num_sub*N + sub1
+              
+              for Np in range(2):
+                  X2 = num_sub*Np + sub1
+                  
+                  for M in range(2):
+                      X3 = num_sub*M + sub2
+                      
+                      tmp1 = np.outer(u11_m1[X1, :], u21_m2[X2, :])[:, :, None] \
+                           * u11_3[X3, :][None, None, :] * phase1 \
+                           + np.outer(u21_m1[X3, :], u21_m2[X2, :])[:, :, None] \
+                           * u21_3[X1, :][None, None, :] * phase2 \
+                           + np.outer(u11_m1[X1, :], u21_m2[X3, :])[:, :, None] \
+                           * u11_3[X2, :][None, None, :] * phase3 
+# =============================================================================
+#                            + np.outer(u11_m1[X2, :], u21_m2[X1, :])[:, :, None] \
+#                            * u11_3[X3, :][None, None, :] * phase1 \
+#                            + np.outer(u21_m1[X2, :], u21_m2[X3, :])[:, :, None] \
+#                            * u21_3[X1, :][None, None, :] * phase3 \
+#                            + np.outer(u11_m1[X3, :], u21_m2[X1, :])[:, :, None] \
+#                            * u11_3[X2, :][None, None, :] * phase2   
+# =============================================================================
+                               
+                           
+# =============================================================================
+#                       tmp1 = np.outer(u11_m1[X1, :], u21_m2[X2, :])[:, :, None] \
+#                            * u11_3[X3, :][None, None, :] * phase1 \
+#                          + np.outer(u21_3[X1, :], u21_m2[X2, :])[:, :, None] \
+#                            * u21_m1[X3, :][None, None, :] * phase2 \
+#                          + np.outer(u11_m1[X1, :], u11_3[X2, :])[:, :, None] \
+#                            * u21_m2[X3, :][None, None, :]* phase3 \
+#                          + np.outer(u11_m2[X1, :], u21_m1[X2, :])[:, :, None] \
+#                            * u11_3[X3, :][None, None, :] * phase1 \
+#                          + np.outer(u21_3[X1, :], u21_m1[X2, :])[:, :, None] \
+#                            * u21_m2[X3, :][None, None, :] * phase3 \
+#                          + np.outer(u11_m2[X1, :], u11_3[X2, :])[:, :, None] \
+#                            * u21_m1[X3, :][None, None, :]* phase2 
+# =============================================================================
+
+                         
+                      Fc_mat_symm[N, Np, M, ...] = tmp1
                    
                    # Fd_mat_symm is symmetric under the permutation of 
                    # the last two momenta                   
                    
-                        tmp2 = np.outer(u11_3[X1, :], u11_m2[X2, :]) \
-                           * u11_m1[X3, :][:, None, None] * phase2 \
-                        + np.outer(u21_m1[X1, :], u11_m2[X2, :]) \
-                           * u21_3[X3, :][:, None, None] * phase1 \
-                        + np.outer(u21_m2[X1, :], u21_3[X2, :]) \
-                           * u11_m1[X3, :][:, None, None] * phase2 \
-                        + np.outer(u11_3[X1, :], u11_m1[X2, :]) \
-                           * u11_m2[X3, :][:, None, None] * phase3 \
-                        + np.outer(u21_m2[X1, :], u11_m1[X2, :]) \
-                           * u21_3[X3, :][:, None, None] * phase1 \
-                        + np.outer(u21_m1[X1, :], u21_3[X2, :]) \
-                           * u11_m2[X3, :][:, None, None] * phase3
+                      tmp2 = np.outer(u11_3[X1, :], u11_m2[X2, :])[:, :, None] \
+                           * u11_m1[X3, :][None, None, :] * phase2 \
+                        + np.outer(u21_m1[X1, :], u11_m2[X2, :])[:, :, None] \
+                           * u21_3[X3, :][None, None, :] * phase1 \
+                        + np.outer(u21_m2[X1, :], u21_3[X2, :])[:, :, None] \
+                           * u11_m1[X3, :][None, None, :]* phase2 \
+                        + np.outer(u11_3[X1, :], u11_m1[X2, :])[:, :, None] \
+                           * u11_m2[X3, :][None, None, :] * phase3 \
+                        + np.outer(u21_m2[X1, :], u11_m1[X2, :])[:, :, None] \
+                           * u21_3[X3, :][None, None, :] * phase1 \
+                        + np.outer(u21_m1[X1, :], u21_3[X2, :])[:, :, None] \
+                           * u11_m2[X3, :][None, None, :] * phase3
                            
-                        Fd_mat_symm[N, Np, M, ...] = tmp2
-                       
-                    
+                      Fd_mat_symm[N, Np, M, ...] = tmp2
+                      
         return Fc_mat_symm, Fd_mat_symm
-    
-    
+                   
+                   
+           
+
     Fcmat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
                       dtype=complex)
     Fdmat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
@@ -251,39 +271,47 @@ def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
     for bond in range(12):
         
         bond_vec = delta_ij[:, bond]
-        sub1 = sub_idx[bond, 0]
-        sub2 = sub_idx[bond, 1]
+        subi = sub_idx[bond, 0]
+        subj = sub_idx[bond, 1]
         
         Fcmat1[bond, :, :, :, :, :], \
-            Fdmat1[bond, :, :, :, :, :] = Fcd_mat_symm(sub2, sub2, bond_vec, 0)
+            Fdmat1[bond, :, :, :, :, :] = Fcd_mat_symm(subj, subj, bond_vec, 0)
         
         Fcmat2[bond, :, :, :, :, :], \
-            Fdmat2[bond, :, :, :, :, :] = Fcd_mat_symm(sub1, sub1, bond_vec, 0)
+            Fdmat2[bond, :, :, :, :, :] = Fcd_mat_symm(subi, subi, bond_vec, 0)
             
         Fcmat3[bond, :, :, :, :, :, :], \
-            Fdmat3[bond, :, :, :, :, :, :] = Fcd_mat_symm(sub2, sub1, \
+            Fdmat3[bond, :, :, :, :, :, :] = Fcd_mat_symm(subj, subi, \
                                                           bond_vec, 2)
         
         Fcmat4[bond, :, :, :, :, :, :], \
-            Fdmat4[bond, :, :, :, :, :, :] = Fcd_mat_symm(sub1, sub2, \
+            Fdmat4[bond, :, :, :, :, :, :] = Fcd_mat_symm(subi, subj, \
                                                           bond_vec, 1)
         
         
-    tmp1 = JJJ[:, :, :, None, None, None] * Fcmat1 \
-         + JJJ[:, :, :, None, None, None].conj() * Fdmat1 \
-         + III[:, :, :, None, None, None] * Fcmat2 \
-         + III[:, :, :, None, None, None].conj() * Fdmat2
+# =============================================================================
+#     tmp1 = JJJ[:, :, :, None, None, None] * Fcmat1 \
+#          + JJJ[:, :, :, None, None, None].conj() * Fdmat1 \
+#          + III[:, :, :, None, None, None] * Fcmat2 \
+#          + III[:, :, :, None, None, None].conj() * Fdmat2
+# =============================================================================
+    tmp1 =  JJJ[:, :, :, None, None, None] * Fcmat1 \
+         +  III[:, :, :, None, None, None] * Fcmat2 
          
     res1 = tmp1.sum(axis=(0, 1, 2))  
     
-    tmp2 = JJI[:, :, :, :, None, None, None] * Fcmat3 \
-         + JJI[:, :, :, :, None, None, None].conj() * Fdmat3 \
-         + IIJ[:, :, :, :, None, None, None] * Fcmat4 \
-         + IIJ[:, :, :, :, None, None, None].conj() * Fdmat4 
+# =============================================================================
+#     tmp2 = JJI[:, :, :, :, None, None, None] * Fcmat3 \
+#          + JJI[:, :, :, :, None, None, None].conj() * Fdmat3 \
+#          + IIJ[:, :, :, :, None, None, None] * Fcmat4 \
+#          + IIJ[:, :, :, :, None, None, None].conj() * Fdmat4 
+# =============================================================================
+    tmp2 =   JJI[:, :, :, :, None, None, None] * Fcmat3 \
+         +   IIJ[:, :, :, :, None, None, None] * Fcmat4 
     
     res2 = tmp2.sum(axis=(0, 1, 2, 3))
     
-    V2 = res1 + 2.0*res2
+    V2 = res1+2*res2
     
     return V2
   
