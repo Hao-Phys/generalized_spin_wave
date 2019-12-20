@@ -539,30 +539,30 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                              + IIJ[bond, N, Np, M]*tFc2 \
                                + (IIJ[bond, N, Np, M]*tFd2).conj())                    
                         
-                        
-
-           
-                    
-# =============================================================================
-#         for sublat in range(num_sub):
-#                 
-#                 In = num_sub*N + sublat
-#                 Inp = num_sub*Np + sublat
-#                 
-#                 factor1 = thi[sublat] @ f3[:, N, Np]
-#                 factor2 = thi[sublat] @ f3[:, N, Np].conj()
-#                 
-#                 tFc = Fc_symm(In, In, Inp, \
-#                               band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
-#                               q1, q2, q3, 0.0, 0)
-#                 tFd = Fd_symm(In, In, Inp, \
-#                               band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
-#                               -q3, -q2, -q1, 0.0, 0)
-#                 
-#                 V2 += factor1*tFc + factor2*tFd.conj()
-# =============================================================================
+            
+           for sublat in range(num_sub):
+                
+                In = num_sub*N + sublat
+                Inp = num_sub*Np + sublat
+                
+                factor1 = thi[sublat, :] @ f3[:, N, Np]                    
+                factor2 = thi[sublat, :] @ f3[:, N, Np].conj()
+                
+                tFc = Fc_symm(In, In, Inp, \
+                              band1, band2, band3, Ubovm1, Ubovm2, Ubov3, \
+                              q1, q2, q3, 0.0, 0)
+                tFd = Fd_symm(In, In, Inp, \
+                              band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
+                              -q3, -q2, -q1, 0.0, 0)
+                
+                V2 += factor1*tFc + factor2*tFd.conj()
                 
     return V2
+
+
+
+
+
 
 # =============================================================================
 # def test_vertex(band1, band2, band3, q1, q2, q3):

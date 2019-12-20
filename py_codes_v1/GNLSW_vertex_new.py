@@ -62,9 +62,9 @@ for sublat in range(num_sub):
     for flavor1 in range(2):
         for flavor2 in range(2):
             
-            III_onsite[sublat, flavor1, flavor2] = thi[sublat] \
+            III_onsite[sublat, flavor1, flavor2] = thi[sublat, :] \
                 @ f3[:, flavor1, flavor2]
-            III_onsite_c[sublat, flavor1, flavor2] = thi[sublat] \
+            III_onsite_c[sublat, flavor1, flavor2] = thi[sublat, :] \
                 @ f3[:, flavor1, flavor2].conj()
                 
 
@@ -248,7 +248,6 @@ def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
                    
                    
            
-
     Fcmat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
                       dtype=complex)
     Fdmat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
@@ -313,9 +312,9 @@ def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
        
         Fcmat5[sublat, :, :, :, :, :], Fdmat5[sublat, :, :, :, :, :] \
             = Fcd_mat_symm(sublat, sublat, 0.0, 0)
-        
+         
     tmp3 = III_onsite[:, :, :, None, None, None] * Fcmat5 \
-         + III_onsite_c[:, :, :, None, None, None] * Fdmat5
+        + III_onsite_c[:, :, :, None, None, None] * Fdmat5
         
     res3 = tmp3.sum(axis=(0, 1, 2))
         
