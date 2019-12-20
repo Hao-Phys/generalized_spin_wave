@@ -9,11 +9,14 @@ Created on Tue Dec 10 15:16:55 2019
 import numpy as np
 import GLSW
 import GNLSW_selfE as selfE
+import time
 
+st = time.time()
+q = np.array([0.1, 0.2, 0.0])
+eq, ubov_q = GLSW.eigensystem(q)
+tmp, ubov_mq = GLSW.eigensystem(-q)
 
-q1 = np.array([0.0, 0.0, 0.0])
-omega, tmp = GLSW.eigensystem(q1)
-band = 0
-omega = 0
-E1 = selfE.Sigma_decay(q1, 0.04, band)
+E1 = selfE.Sigma_decay(q, eq, ubov_q, ubov_mq)
+et = time.time()
 print(E1)
+print('time elapse =', et-st, 's')

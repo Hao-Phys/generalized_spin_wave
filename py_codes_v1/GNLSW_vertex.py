@@ -309,7 +309,7 @@ def V1_cubic(band1, band2, band3, q1, q2, q3, \
            tFb2 = Fb_symm(In, In, Inp, \
                           band3, band2, band1, Ubov3, Ubov2, Ubov1, \
                           -q3, -q2, -q1, bond_vec, 0)
-            
+
            V1 += JJJ[bond, N, Np]*tFa1 + (JJJ[bond, N, Np]*tFb1).conj() \
                 +III[bond, N, Np]*tFa2 + (III[bond, N, Np]*tFb2).conj()
                  
@@ -334,6 +334,7 @@ def V1_cubic(band1, band2, band3, q1, q2, q3, \
                                band3, band2, band1, Ubov3, Ubov2, Ubov1, \
                                -q3, -q2, -q1, bond_vec, 1)
                 
+                    
                 V1 += 2.0*(JJI[bond, N, Np, M]*tFa1 \
                            + (JJI[bond, N, Np, M]*tFb1).conj() \
                          + IIJ[bond, N, Np, M]*tFa2 \
@@ -351,7 +352,7 @@ def V1_cubic(band1, band2, band3, q1, q2, q3, \
             tFb = Fb_symm(In, In, Inp, \
                           band3, band2, band1, Ubov3, Ubov2, Ubov1, \
                           -q3, -q2, -q1, 0.0, 0)
-            
+                
             V1 += factor1*tFa + factor2*tFb.conj()
             
 

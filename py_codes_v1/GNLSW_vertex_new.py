@@ -318,12 +318,247 @@ def V_cubic_decay(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
         
     res3 = tmp3.sum(axis=(0, 1, 2))
         
-    V2 = res1+2*res2+res3
+    Vd = res1+2.0*res2+res3
     
-    return V2
+    return Vd
   
 
+def V_cubic_source(q1, q2, q3, ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3):
+    """
+    
+
+    calculates the source vertex functions: 
+        V_decay = V2*beta*beta*beta
+
+    Parameters
+    ----------
+    q1 : np.array((3,))
+        input momentum.
+    q2 : np.array((3,))
+        intermediate momentum.
+    q3 : np.array((3,))
+        intermediate momentum.
+    ubov{}: np.array((4*num_sub, 4*num_sub))
+        Bogoliubov matrices for positive and negative momenta
+
+    Returns
+    -------
+    V_decay : np.array((2*num_sub, 2*num_sub, 2*num_sub))  source vertex
+
+
+    """
+    
+    u11_1 = ubov1[:2*num_sub, :2*num_sub]
+    u21_1 = ubov1[2*num_sub:, :2*num_sub]
+    u11_2 = ubov2[:2*num_sub, :2*num_sub]
+    u21_2 = ubov2[2*num_sub:, :2*num_sub]
+    u11_3 = ubov3[:2*num_sub, :2*num_sub]
+    u21_3 = ubov3[2*num_sub:, :2*num_sub]
+    
+# =============================================================================
+#     u11_m1 = ubovm1[:2*num_sub, :2*num_sub]
+#     u21_m1 = ubovm1[2*num_sub:, :2*num_sub]
+#     u11_m2 = ubovm2[:2*num_sub, :2*num_sub]
+#     u21_m2 = ubovm2[2*num_sub:, :2*num_sub]
+#     u11_m3 = ubovm3[:2*num_sub, :2*num_sub]
+#     u21_m3 = ubovm3[2*num_sub:, :2*num_sub]    
+# =============================================================================
+    
+    def Fab_mat_symm(sub1, sub2, bond_vec, typ):
+        
+        phase_1 = phase_fun(q1, bond_vec, typ)
+        phase_2 = phase_fun(q2, bond_vec, typ)
+        phase_3 = phase_fun(q3, bond_vec, typ)
+        phase_m1 = phase_fun(-q1, bond_vec, typ)
+        phase_m2 = phase_fun(-q2, bond_vec, typ)
+        phase_m3 = phase_fun(-q3, bond_vec, typ)
+        
+        if (typ == 0):
+            
+            Fa_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
+                                    2*num_sub), dtype=complex)
+            Fb_mat_symm = np.zeros((2, 2, 2*num_sub, 2*num_sub, \
+                                    2*num_sub), dtype=complex)
+            
+            for N in range(2):
+                X1 = num_sub*N + sub1
+                X2 = X1
+                
+                for Np in range(2):
+                    X3 = num_sub*Np + sub1
                     
+                    tmp1 = np.outer(u21_1[X1, :], u11_2[X2, :])[:, :, None] \
+                         * u11_3[X3, :][None, None, :] * phase_3 \
+                         + np.outer(u21_1[X1, :], u11_2[X3, :])[:, :, None] \
+                         * u11_3[X2, :][None, None, :] * phase_2 \
+                         + np.outer(u11_1[X2, :], u21_2[X1, :])[:, :, None] \
+                         * u11_3[X3, :][None, None, :] * phase_3 \
+                         + np.outer(u11_1[X2, :], u11_2[X3, :])[:, :, None] \
+                         * u21_3[X1, :][None, None, :] * phase_2 \
+                         + np.outer(u11_1[X3, :], u21_2[X1, :])[:, :, None] \
+                         * u11_3[X2, :][None, None, :] * phase_1 \
+                         + np.outer(u11_1[X3, :], u11_2[X2, :])[:, :, None] \
+                         * u21_3[X1, :][None, None, :] * phase_1
+                    
+                    Fa_mat_symm[N, Np, ...] = tmp1
+                    
+                    tmp2 = np.outer(u21_1[X3, :], u21_2[X2, :])[:, :, None] \
+                         * u11_3[X1, :][None, None, :] * phase_m1 \
+                         + np.outer(u21_1[X3, :], u11_2[X1, :])[:, :, None] \
+                         * u21_3[X2, :][None, None, :] * phase_m1 \
+                         + np.outer(u21_1[X2, :], u21_2[X3, :])[:, :, None] \
+                         * u11_3[X1, :][None, None, :] * phase_m2 \
+                         + np.outer(u21_1[X2, :], u11_2[X1, :])[:, :, None] \
+                         * u21_3[X3, :][None, None, :] * phase_m3 \
+                         + np.outer(u11_1[X1, :], u21_2[X3, :])[:, :, None] \
+                         * u21_3[X2, :][None, None, :] * phase_m2 \
+                         + np.outer(u11_1[X1, :], u21_2[X2, :])[:, :, None] \
+                         * u21_3[X3, :][None, None, :] * phase_m3
+                    
+                    Fb_mat_symm[N, Np, ...] = tmp2
+                    
+            return Fa_mat_symm, Fb_mat_symm
+        
+        else:
+            
+            Fa_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, \
+                                    2*num_sub), dtype=complex)
+            Fb_mat_symm = np.zeros((2, 2, 2, 2*num_sub, 2*num_sub, \
+                                    2*num_sub), dtype=complex)
+                
+            for N in range(2):
+                X1 = num_sub*N + sub1
+                
+                for Np in range(2):
+                    X2 = num_sub*Np + sub1
+                    
+                    for M in range(2):
+                        X3 = num_sub*M + sub2
+                        
+                        tmp1 = np.outer(u21_1[X1, :], u11_2[X2, :])[:, :, None] \
+                             * u11_3[X3, :][None, None, :] * phase_3 \
+                             + np.outer(u21_1[X1, :], u11_2[X3, :])[:, :, None] \
+                             * u11_3[X2, :][None, None, :] * phase_2 \
+                             + np.outer(u11_1[X2, :], u21_2[X1, :])[:, :, None] \
+                             * u11_3[X3, :][None, None, :] * phase_3 \
+                             + np.outer(u11_1[X2, :], u11_2[X3, :])[:, :, None] \
+                             * u21_3[X1, :][None, None, :] * phase_2 \
+                             + np.outer(u11_1[X3, :], u21_2[X1, :])[:, :, None] \
+                             * u11_3[X2, :][None, None, :] * phase_1 \
+                             + np.outer(u11_1[X3, :], u11_2[X2, :])[:, :, None] \
+                             * u21_3[X1, :][None, None, :] * phase_1
+                             
+                        Fa_mat_symm[N, Np, M, ...] = tmp1
+                        
+                        tmp2 = np.outer(u21_1[X3, :], u21_2[X2, :])[:, :, None] \
+                             * u11_3[X1, :][None, None, :] * phase_m1 \
+                             + np.outer(u21_1[X3, :], u11_2[X1, :])[:, :, None] \
+                             * u21_3[X2, :][None, None, :] * phase_m1 \
+                             + np.outer(u21_1[X2, :], u21_2[X3, :])[:, :, None] \
+                             * u11_3[X1, :][None, None, :] * phase_m2 \
+                             + np.outer(u21_1[X2, :], u11_2[X1, :])[:, :, None] \
+                             * u21_3[X3, :][None, None, :] * phase_m3 \
+                             + np.outer(u11_1[X1, :], u21_2[X3, :])[:, :, None] \
+                             * u21_3[X2, :][None, None, :] * phase_m2 \
+                             + np.outer(u11_1[X1, :], u21_2[X2, :])[:, :, None] \
+                             * u21_3[X3, :][None, None, :] * phase_m3
+                    
+                        Fb_mat_symm[N, Np, M, ...] = tmp2
+                    
+            return Fa_mat_symm, Fb_mat_symm
+                        
+    Famat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Fbmat1 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Famat2 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Fbmat2 = np.zeros((num_bond, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    
+    Famat3 = np.zeros((num_bond, 2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Fbmat3 = np.zeros((num_bond, 2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Famat4 = np.zeros((num_bond, 2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Fbmat4 = np.zeros((num_bond, 2, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+        
+    for bond in range(12):
+        
+        bond_vec = delta_ij[:, bond]
+        subi = sub_idx[bond, 0]
+        subj = sub_idx[bond, 1]
+        
+        Famat1[bond, :, :, :, :, :], \
+            Fbmat1[bond, :, :, :, :, :] = Fab_mat_symm(subj, subj, bond_vec, 0)
+        
+        Famat2[bond, :, :, :, :, :], \
+            Fbmat2[bond, :, :, :, :, :] = Fab_mat_symm(subi, subi, bond_vec, 0)
+            
+        Famat3[bond, :, :, :, :, :, :], \
+            Fbmat3[bond, :, :, :, :, :, :] = Fab_mat_symm(subj, subi, \
+                                                          bond_vec, 2)
+        
+        Famat4[bond, :, :, :, :, :, :], \
+            Fbmat4[bond, :, :, :, :, :, :] = Fab_mat_symm(subi, subj, \
+                                                          bond_vec, 1)
+        
+        
+    tmp1 = JJJ[:, :, :, None, None, None] * Famat1 \
+         + JJJ[:, :, :, None, None, None].conj() * Fbmat1 \
+         + III[:, :, :, None, None, None] * Famat2 \
+         + III[:, :, :, None, None, None].conj() * Fbmat2
+
+         
+    res1 = tmp1.sum(axis=(0, 1, 2))  
+    
+
+    tmp2 = JJI[:, :, :, :, None, None, None] * Famat3 \
+         + JJI[:, :, :, :, None, None, None].conj() * Fbmat3 \
+         + IIJ[:, :, :, :, None, None, None] * Famat4 \
+         + IIJ[:, :, :, :, None, None, None].conj() * Fbmat4 
+
+    
+    res2 = tmp2.sum(axis=(0, 1, 2, 3))
+    
+    Famat5 = np.zeros((num_sub, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+    Fbmat5 = np.zeros((num_sub, 2, 2, 2*num_sub, 2*num_sub, 2*num_sub), \
+                      dtype=complex)
+        
+    for sublat in range(num_sub):
+       
+        Famat5[sublat, :, :, :, :, :], Fbmat5[sublat, :, :, :, :, :] \
+            = Fab_mat_symm(sublat, sublat, 0.0, 0)
+            
+    tmp3 = III_onsite[:, :, :, None, None, None] * Famat5 \
+        + III_onsite_c[:, :, :, None, None, None] * Fbmat5
+        
+    res3 = tmp3.sum(axis=(0, 1, 2))
+        
+    Vs = res1+2.0*res2+res3
+    
+    return Vs        
+                        
+                        
+                        
+                        
+                        
+                        
+        
+        
+            
+        
+                         
+                             
+                        
+                         
+                    
+                    
+        
+               
         
  
                 
