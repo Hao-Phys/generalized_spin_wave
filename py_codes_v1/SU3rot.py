@@ -78,7 +78,7 @@ SU(3) global to local frame rotation
 """
 
 
-fname = cf.path + '/opt_angles.txt'
+fname = cf.path + 'opt_angles.txt'
 angles = np.loadtxt(fname)
 num_sub = cf.num_sub
 

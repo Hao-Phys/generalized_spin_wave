@@ -89,12 +89,7 @@ def Fa_symm(X1, X2, X3, \
            band1, band2, band3, Ubov1, Ubov2, Ubov3, q1, q2, q3, \
            vec, typ):
     
-    """
-    symmetrized Fa function: permutation of q1, q2, q3
-    the band index and the order of Bogliubov coefficients
-    change accordingly
     
-    """
     value = 0.0
     
     tmp = Fa_fun(X1, X2, X3, \

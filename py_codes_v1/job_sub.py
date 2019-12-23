@@ -8,5 +8,5 @@ Created on Wed Dec  4 15:53:00 2019
 
 import os 
 
-cmd = 'python3 test_vertex.py input.txt'
+cmd = 'python3 main_selfE.py input.txt inMo.txt > log.txt'
 os.system(cmd)

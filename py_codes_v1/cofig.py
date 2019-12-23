@@ -1,5 +1,5 @@
 import numpy as np
-#import sys
+import sys
 """
 model parameters
 """
@@ -7,8 +7,8 @@ model parameters
 # accept input fiels
 # run the program as python{} xxx.py input.txt
 
-#inFile = sys.argv[1]
-inFile = 'input.txt'
+inFile = sys.argv[1]
+#inFile = 'input.txt'
 paras = np.loadtxt(inFile)
 
 kelvin_to_meV = 11.602
@@ -38,7 +38,7 @@ field   = paras[19]
 
 print("the external field is: ", field)
 # directory for each field for later manipulation
-path = 'gs_info/h=' + str(field) + 'T/'
+path = '/home/hao/Desktop/SU3_GSW/FeI2_field/generalized_spin_wave/py_codes_v1/gs_info/h=' + str(field) + 'T/'
 # the external field
 
 g_factor = 3.2

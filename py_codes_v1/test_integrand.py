@@ -46,10 +46,10 @@ st1 = time.time()
 V2 = vertex.V_cubic_source(q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
                      ubov_mq.conj(), ubov_mk.conj(), ubov_mqmk.conj())
     
-V2_old = vertex_old.V1_cubic(1, 5, 6, q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
+V2_old = vertex_old.V1_cubic(2, 3, 7, q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
                      ubov_mq, ubov_mk, ubov_mqmk)   
     
-print('new vertex = ', V2[1, 5, 6])
+print('new vertex = ', V2[2, 3, 7])
 print('old vertex = ', V2_old)
 
 # the denominator

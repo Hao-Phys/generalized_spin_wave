@@ -129,8 +129,8 @@ def Sigma_decay(q, eq, ubov_q, ubov_mq):
                  nvec=1)
     """
 
-    res = pycuba.Vegas(integrand_decay, NDIM, epsabs = 1e-3, \
-                      verbose=2, ncomp=4*num_sub, maxeval=1000)
+    res = pycuba.Vegas(integrand_decay, NDIM, epsabs = 1e-5, \
+                      verbose=2, ncomp=4*num_sub, maxeval=10000)
     
     """
     
@@ -151,12 +151,14 @@ def Sigma_decay(q, eq, ubov_q, ubov_mq):
   """
 
     print_results('Vegas', res)
-    # get values of the keyword 'result' (in the dictionary)
-    # first element is the result of the integration
+
     rres = res.get('results')
-    iintegral = rres.get('integral')
-    
-    return iintegral
+    len_rres = len(rres)
+    iintegrals = np.zeros(len_rres)
+    for flag in range(len_rres):
+        iintegrals[flag] = rres[flag].get('integral')
+     
+    return iintegrals    
     
     
 def Sigma_source(q, eq, ubov_q, ubov_mq):
@@ -246,8 +248,8 @@ def Sigma_source(q, eq, ubov_q, ubov_mq):
                  nvec=1)
     """
 
-    res = pycuba.Vegas(integrand_source, NDIM, epsabs = 1e-3, \
-                      verbose=2, ncomp=2*num_sub, maxeval=1000)
+    res = pycuba.Vegas(integrand_source, NDIM, epsabs = 1e-5, \
+                      verbose=2, ncomp=2*num_sub, maxeval=10000)
     
     """
     
@@ -268,12 +270,15 @@ def Sigma_source(q, eq, ubov_q, ubov_mq):
   """
 
     print_results('Vegas', res)
-    # get values of the keyword 'result' (in the dictionary)
-    # first element is the result of the integration
+
     rres = res.get('results')
-    iintegral = rres.get('integral')
+    len_rres = len(rres)
+    iintegrals = np.zeros(len_rres)
+    for flag in range(len_rres):
+        iintegrals[flag] = rres[flag].get('integral')
     
-    return iintegral        
+    return iintegrals  
+
         
             
         
