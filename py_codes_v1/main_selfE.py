@@ -11,7 +11,9 @@ import cofig as cf
 import GLSW
 import GNLSW_selfE as selfE
 import sys
+import time
 
+st = time.time()
 num_sub = cf.num_sub
 # input file for three momenta
 inFile = sys.argv[2] 
@@ -22,7 +24,8 @@ q = np.array([inM[1], inM[2], inM[3]])
 eq, ubov_q = GLSW.eigensystem(q)
 tmp, ubov_mq = GLSW.eigensystem(-q)
 
-f = open('selfE.txt', 'w')
+fileName = 'selfE_h_' + str(cf.field) + 'T.txt'
+f = open(fileName, 'w')
 f.write('%4d' % num)
 f.write('%8.3f' % q[0])
 f.write('%8.3f' % q[1])
@@ -46,3 +49,5 @@ for flag1 in range(2*num_sub-1):
 # write change line indicator for later cat 
 f.write('%20.10f\n' %res2[2*num_sub-1])
 f.close()
+et = time.time()
+print('time elapse is', et-st, 's')
