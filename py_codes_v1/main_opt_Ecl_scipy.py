@@ -6,6 +6,11 @@ Created on Sun Dec  1 12:33:20 2019
 @author: hao
 """
 
+""" 
+To run this program:
+    python3 main_opt_Ecl_scipy.py <input.txt>,
+    where <input.txt> is the input file for cofig
+"""
 import numpy as np
 import time
 import Ecl_opt_obj as Eobj

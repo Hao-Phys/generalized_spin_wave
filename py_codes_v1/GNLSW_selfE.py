@@ -279,6 +279,110 @@ def Sigma_source(q, eq, ubov_q, ubov_mq):
     
     return iintegrals  
 
+
+def greenfunction_gnlsw(omega, q, selfE_re, selfE_im):
+    
+    """
+    calculates the green function of H-P bosons after 1/NS correction
+    
+    Parameters
+    ----------
+    omega   : np.array((anylength,))
+              the frequency 
+    q       : np.array((3,))
+              input momentum
+    selfE_re: np.array((2*num_sub, ))
+              real part self-energy using on-shell approximation 
+    
+    selfE_im: np.array((2*num_sub, ))
+              imag part self-energy using on-shell approximation
+              
+    Returns
+    -------
+    gf: np.array((4*num_sub, 4*num_sub)) 
+    """
+    
+    len_omega = len(omega)
+    gf = np.zeros([len_omega, 4*num_sub, 4*num_sub], dtype=complex)
+    
+    ek, ubov = GLSW.eigensystem(q)
+    ek_m, ubov_m = GLSW.eigensystem(-q)
+    
+    ubov_m = ubov_m.conj()
+    minus_mat = np.zeros([4*num_sub, 4*num_sub], dtype=complex)
+    plus_mat = np.zeros([4*num_sub, 4*num_sub], dtype=complex)
+    
+    u11 = ubov[:2*num_sub, :2*num_sub]
+    u21 = ubov[2*num_sub:, :2*num_sub]
+    u11_m = ubov_m[:2*num_sub, :2*num_sub]
+    u21_m = ubov_m[2*num_sub:, :2*num_sub]
+    
+    for band in range(2*num_sub):
+        
+        minus_mat[:2*num_sub, :2*num_sub] = np.outer(u11[:, band], u11[:, band].conj())
+        minus_mat[:2*num_sub, 2*num_sub:] = np.outer(u11[:, band], u21[:, band].conj())
+        minus_mat[2*num_sub:, :2*num_sub] = np.outer(u21[:, band], u11[:, band].conj())
+        minus_mat[2*num_sub:, 2*num_sub:] = np.outer(u21[:, band], u21[:, band].conj())
+        
+        plus_mat[:2*num_sub, :2*num_sub] = np.outer(u21_m[:, band], u21_m[:, band].conj())
+        plus_mat[:2*num_sub, 2*num_sub:] = np.outer(u21_m[:, band], u11_m[:, band].conj())
+        plus_mat[2*num_sub:, :2*num_sub] = np.outer(u11_m[:, band], u21_m[:, band].conj())
+        plus_mat[2*num_sub:, 2*num_sub:] = np.outer(u11_m[:, band], u11_m[:, band].conj())
+        
+        tmp1 = np.reshape(omega - (ek[band] + selfE_re[band]) - 1j*selfE_im[band], len_omega)
+        tmp2 = np.reshape(omega + (ek_m[band] + selfE_re[band]) - 1j*selfE_im[band], len_omega)
+        
+        # use this to avoid loop 
+        gf += - minus_mat/(tmp1[:, None, None]) + plus_mat/(tmp2[:, None, None])
+        
+    return gf
+
+
+
+def intensity(omega, qx, qy, qz, selfE_re, selfE_im):
+    
+    """ 
+    output neutron intensity up to 1/NS order for given qx, qy, and qz
+    WARNING: ignores H-F corrections (quartic), because they are small!
+    """
+    
+    qq = np.array([qx, qy, qz])
+    q1, q2, q3 = cf.kxyTok12(qx, qy, qz)
+    len_omega = len(omega)
+    q = np.array([q1, q2, q3])
+    
+    chi_mat = np.zeros((len_omega, 3, 3), dtype=complex)
+    
+    gf = greenfunction_gnlsw(omega, q, selfE_re, selfE_im)
+    gf11 = gf[:, :2*num_sub, :2*num_sub]
+    gf12 = gf[:, :2*num_sub, 2*num_sub:]
+    gf21 = gf[:, 2*num_sub:, :2*num_sub]
+    gf22 = gf[:, 2*num_sub:, 2*num_sub:] 
+    
+    for sub1 in range(num_sub):
+        for sub2 in range(num_sub):
+                        
+            for m in range(2):
+                for mp in range(2):
+                    
+                    mat1, mat2, mat3, mat4 = GLSW.int_mat(sub1, sub2, m, mp)
+                    
+                    element1 = gf12[:, 4*m+sub1, 4*mp+sub2]
+                    element2 = gf21[:, 4*m+sub1, 4*mp+sub2]
+                    element3 = gf11[:, 4*m+sub1, 4*mp+sub2]
+                    element4 = gf22[:, 4*m+sub1, 4*mp+sub2]
+                    
+                    chi_mat += (-1/num_sub)\
+                            * (element1[:, None, None]*mat1 + element2[:, None, None]*mat2 \
+                             + element3[:, None, None]*mat3 + element4[:, None, None]*mat4) 
+                             
+    sqw_mat = -2.0 * np.imag(chi_mat)
+    ff = cf.formfactor(qq)
+    sc_inten = ff*cf.projector(qx, qy, qz, sqw_mat)
+    
+    return sc_inten
+
+    
         
             
         

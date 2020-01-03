@@ -6,6 +6,13 @@ Created on Sat Dec 21 10:45:08 2019
 @author: hao
 """
 
+""" 
+To run this program:
+    python3 main_selfE.py <input.txt> <inMo.txt>
+    where <input.txt> is the input parameters, 
+    and <inMo.txt> is the input momentum
+"""
+
 import numpy as np
 import cofig as cf
 import GLSW
@@ -36,7 +43,7 @@ res2 = selfE.Sigma_source(q, eq, ubov_q, ubov_mq)
 
 """
 selfE.txt
-ith  q1  q2  q3  e1...e8 Re(decay1) Im(decay1) ... Re(decay8) Im(decay8) ... 
+ith  q1  q2  q3  Re(decay1) Im(decay1) ... Re(decay8) Im(decay8) ... 
 Re(source1) ... Re(source8)  
 """
 

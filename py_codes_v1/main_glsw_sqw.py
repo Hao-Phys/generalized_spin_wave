@@ -5,6 +5,12 @@ Created on Thu Dec 12 15:34:11 2019
 
 @author: Hao
 """
+""" 
+To run this program:
+    python3 main_glsw_sqw.py <input.txt>,
+    where <input.txt> is the input file for cofig
+"""
+
 import numpy as np
 import cofig as cf
 import GLSW
@@ -13,6 +19,7 @@ import GLSW
 
 K = 0.2
 inputpath1 = 'cuts/K=' + str(K) + '/path_domain1.dat'
+field = cf.field
 #inputpath2 = 'cuts/K=' + str(K) + '/path_domain2.dat'
 #inputpath3 = 'cuts/K=' + str(K) + '/path_domain3.dat'
 
@@ -68,7 +75,7 @@ for flag in range(lenk1):
 #     intensity_sc3[:, flag] = GLSW.intensity(omega, kx, ky, kz)
 # =============================================================================
     
-fname = 'intensity_1.txt'
+fname = 'cuts/K=' + str(K) + '/'+ str(field) + 'T_intensity_glsw_d1.txt'
 np.savetxt(fname, intensity_sc1)
 
 # =============================================================================

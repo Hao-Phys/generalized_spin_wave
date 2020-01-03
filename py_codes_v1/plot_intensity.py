@@ -7,11 +7,13 @@ Created on Thu Dec 12 18:41:57 2019
 """
 
 import numpy as np
-#import matplotlib
 #matplotlib.rcParams['text.usetex'] = True
 from matplotlib import pyplot as plt
+import sys
 
-data1 = np.loadtxt('intensity_1.txt')
+fname = sys.argv[1]
+data1 = np.loadtxt(fname)
+
 #data2 = np.loadtxt('intensity_2.txt')
 #data3 = np.loadtxt('intensity_3.txt')
 
