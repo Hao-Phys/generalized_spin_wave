@@ -35,9 +35,9 @@ for flag in range(lenf):
     ek[flag, :] = energy[:2*num_sub] 
 
     for band in range(2*num_sub):
-        spec_nlsw = energy[band] + data[flag, 4+band] + data[flag, 20+band]
+        spec_nlsw = energy[band] + data[flag, 2*band+4] + data[flag, band+20]
         omega[flag, band] = spec_nlsw
-        decay_rate = data[flag, 12+band]
+        decay_rate = data[flag, 2*band+5]
         Gamma[flag, band] = decay_rate
 
 

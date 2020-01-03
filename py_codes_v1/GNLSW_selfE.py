@@ -329,8 +329,8 @@ def greenfunction_gnlsw(omega, q, selfE_re, selfE_im):
         plus_mat[2*num_sub:, :2*num_sub] = np.outer(u11_m[:, band], u21_m[:, band].conj())
         plus_mat[2*num_sub:, 2*num_sub:] = np.outer(u11_m[:, band], u11_m[:, band].conj())
         
-        tmp1 = np.reshape(omega - (ek[band] + selfE_re[band]) - 1j*selfE_im[band], len_omega)
-        tmp2 = np.reshape(omega + (ek_m[band] + selfE_re[band]) - 1j*selfE_im[band], len_omega)
+        tmp1 = np.reshape(omega - (ek[band] + selfE_re[band]) - 1j*selfE_im[band] + 1j*0.12, len_omega)
+        tmp2 = np.reshape(omega + (ek_m[band] + selfE_re[band]) - 1j*selfE_im[band] + 1j*0.12, len_omega)
         
         # use this to avoid loop 
         gf += - minus_mat/(tmp1[:, None, None]) + plus_mat/(tmp2[:, None, None])

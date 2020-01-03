@@ -45,8 +45,8 @@ for flag in range(lenf):
     selfE_im = np.zeros([2*num_sub])
     
     for band in range(2*num_sub):
-        selfE_re[band] = data[flag, 4+band] + data[flag, 20+band]
-        selfE_im[band] = data[flag, 12+band]
+        selfE_re[band] = data[flag, 2*band+4] + data[flag, band+20]
+        selfE_im[band] = data[flag, 2*band+5]
     
     kx, ky, kz = cf.k12Tokxy(q1, q2, q3)
     intensity_nlsw[:, flag] = GNLSW_selfE.intensity(omega, kx, ky, kz, \
