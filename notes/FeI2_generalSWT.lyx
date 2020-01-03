@@ -104,7 +104,7 @@
 \begin_body
 
 \begin_layout Title
-@ cf.f3[:, 1, mp]Generalized spin wave calculation on Fe
+Generalized spin wave calculation on Fe
 \begin_inset Formula $\text{I}_{2}$
 \end_inset
 
@@ -1350,7 +1350,7 @@ where
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\delta\xi^{(2)}=-\sum_{mm'=-1,0}\delta_{m,m'}\bigg[\mathcal{J}\big(\big[f_{mm'}^{(2)}\big]^{*},\big[f^{(0)}\big]^{*}\big)+\mathcal{J}\big(\big[f^{(0)}\big]^{*},\big[f_{mm'}^{(2)}\big]^{*}\big)\bigg]
+\delta\xi^{(2)}=-\sum_{mm'=-1,0}\delta_{m,m'}\bigg[\mathcal{J}\big(\big[f_{mm'}^{(2)}\big]^{*},\big[f^{(0)}\big]^{*}\big)+\mathcal{J}\big(\big[f^{(0)}\big]^{*},\big[f_{mm'}^{(2)}\big]^{*}\big)\bigg],
 \end{equation}
 
 \end_inset
@@ -1359,10 +1359,14 @@ where
 \end_layout
 
 \begin_layout Standard
+and
+\end_layout
+
+\begin_layout Standard
 \begin_inset Formula 
 \begin{align}
 \mathcal{J}(f_{a},f_{b}) & =\big(f_{a}\big)^{T}\tilde{H}_{ij}f_{b}\\
- & =\sum_{\alpha\beta}\big(f_{a}\big)_{\alpha}\big(\tilde{H}_{ij}\big)_{\alpha\beta}\big(f_{b}\big)_{\beta}\label{eq:Jdef}
+ & =\sum_{\alpha\beta}\big(f_{a}\big)_{\alpha}\big(\tilde{H}_{ij}\big)_{\alpha\beta}\big(f_{b}\big)_{\beta}.\label{eq:Jdef}
 \end{align}
 
 \end_inset
@@ -1378,7 +1382,7 @@ For a specific site
 \begin_inset Formula 
 \begin{align}
 \mathcal{H}_{i}^{(2)} & =\sum_{\alpha}\sum_{m,m'=-1,0}(\tilde{\bm{h}}_{i})_{\alpha}\big(f_{\alpha,mm'}^{(2)}b_{im}^{\dagger}b_{im'}+\big[f_{\alpha,mm'}^{(2)}\big]^{*}b_{im}b_{im'}^{\dagger}\big)\\
- & -\sum_{\alpha}\sum_{m,m'=-1,0}(\tilde{\bm{h}}_{i})_{\alpha}\big[f_{\alpha,mm'}^{(2)}\big]^{*}\delta_{m,m'}
+ & -\sum_{\alpha}\sum_{m,m'=-1,0}(\tilde{\bm{h}}_{i})_{\alpha}\big[f_{\alpha,mm'}^{(2)}\big]^{*}\delta_{m,m'}.
 \end{align}
 
 \end_inset
@@ -1393,7 +1397,7 @@ Consider the following Fourier transform on the boson operators,
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-b_{im}=\frac{1}{\sqrt{N_{u}}}\sum_{\bm{k}}e^{i\bm{k}\cdot\bm{r}_{\Theta_{i}}}b_{\bm{k},(\Theta_{i},m)}\label{eq:fourier}
+b_{im}=\frac{1}{\sqrt{N_{u}}}\sum_{\bm{k}}e^{i\bm{k}\cdot\bm{r}_{\Theta_{i}}}b_{\bm{k},(\Theta_{i},m)},\label{eq:fourier}
 \end{equation}
 
 \end_inset
@@ -1837,7 +1841,7 @@ end{align}
 
 \begin_layout Plain Layout
 
-}
+},
 \end_layout
 
 \end_inset
@@ -1847,7 +1851,7 @@ end{align}
 
 \begin_layout Standard
 \begin_inset Note Comment
-status open
+status collapsed
 
 \begin_layout Plain Layout
 \begin_inset Formula 
@@ -1907,7 +1911,7 @@ The dynamic structure factor is related to the real-time dynamic magnetic
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-S_{\mu\nu}(\bm{q},\omega)=-\frac{2}{1-e^{-\beta\omega}}\Im[\chi_{\mu\nu}(\bm{{q}},\omega)]\quad\mu,\nu=x_{0},y_{0},z_{0}\label{eq:fdtheorem}
+S_{\mu\nu}(\bm{q},\omega)=-\frac{2}{1-e^{-\beta\omega}}\Im[\chi_{\mu\nu}(\bm{{q}},\omega)]\quad\mu,\nu=x_{0},y_{0},z_{0}.\label{eq:fdtheorem}
 \end{equation}
 
 \end_inset
@@ -1922,7 +1926,7 @@ The imaginary-time dynamic magnetic susceptibility is given by
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\chi^{\mu\nu}(\bm{q};i\omega_{n})=-\frac{1}{N}\sum_{i,j}e^{-i\bm{q}\cdot(\bm{r}_{i}-\bm{r}_{j})}\int_{0}^{\beta}\dd\tau e^{i\omega_{n}\tau}\expval{\mathcal{T}_{\tau}\big[S_{i}^{\mu}(\tau)S_{j}^{\nu}(0)\big]}
+\chi^{\mu\nu}(\bm{q};i\omega_{n})=-\frac{1}{N}\sum_{i,j}e^{-i\bm{q}\cdot(\bm{r}_{i}-\bm{r}_{j})}\int_{0}^{\beta}\dd\tau e^{i\omega_{n}\tau}\expval{\mathcal{T}_{\tau}\big[S_{i}^{\mu}(\tau)S_{j}^{\nu}(0)\big]},
 \end{equation}
 
 \end_inset
@@ -1940,7 +1944,7 @@ where
 \end_inset
 
  is the number of sublattice).
- By an analytic continuation 
+ Through the analytic continuation 
 \begin_inset Formula $\omega+i0^{+}\rightarrow i\omega$
 \end_inset
 
@@ -1951,7 +1955,7 @@ where
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-S_{i}^{\mu}=\frac{1}{\sqrt{N_{u}}}\sum_{\bm{k}}e^{i\bm{q}\cdot\bm{r}_{i}}S_{\Theta_{i},\bm{q}}
+S_{i}^{\mu}=\frac{1}{\sqrt{N_{u}}}\sum_{\bm{k}}e^{i\bm{q}\cdot\bm{r}_{i}}S_{\Theta_{i},\bm{q}},
 \end{equation}
 
 \end_inset
@@ -1965,6 +1969,7 @@ where
 \end_inset
 
  is the sublattice index.
+ 
 \end_layout
 
 \begin_layout Standard
@@ -2016,8 +2021,8 @@ F(\Theta_{i},\Theta_{j},\bm{q})=\sum_{mm'}\big(f_{\alpha,m}^{(1)}b_{\Theta_{i},\
 \end_layout
 
 \begin_layout Standard
-The above motivates us to define the Green function for the generalized
- H-P boson operators, 
+The above expression motivates us to define the Green function for the generaliz
+ed H-P boson operators, 
 \end_layout
 
 \begin_layout Standard
@@ -2185,6 +2190,14 @@ I\propto\sum_{\mu,\nu=x_{0},y_{0},z_{0}}(\delta_{\mu\nu}-\hat{q}_{\mu}\hat{q}_{\
 \end_inset
 
 
+\end_layout
+
+\begin_layout Section
+Loop expansion
+\end_layout
+
+\begin_layout Subsection
+Qualitative discussion
 \end_layout
 
 \begin_layout Section
@@ -2684,46 +2697,6 @@ The cubic vertex functions
 \end_inset
 
  are ready for diagrammatic calculations.
-\end_layout
-
-\begin_layout Section
-Cubic vertex rules for Numpy pseudocode
-\end_layout
-
-\begin_layout Standard
-Cubic vertex function inputs: incoming momentum 
-\begin_inset Formula $\bm{q}_{1}$
-\end_inset
-
-, intermediate momenta 
-\begin_inset Formula $\bm{q}_{2}$
-\end_inset
-
-, 
-\begin_inset Formula $\bm{q}_{3}$
-\end_inset
-
- (with 
-\begin_inset Formula $\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}=0$
-\end_inset
-
-) , and corresponding Bogoliubov matrices 
-\begin_inset Formula $\mathcal{U}(\bm{q}_{i})$
-\end_inset
-
- and 
-\begin_inset Formula $\mathcal{U}^{*}(\bar{\bm{q}}_{i})$
-\end_inset
-
-.
- Cubic vertex function output: 3D array, each axis represents the band index
- of a particular particle.
- 
-\end_layout
-
-\begin_layout Standard
-First of all, consider the bond Hamiltonian.
- The bond-dependent real space 
 \end_layout
 
 \begin_layout Section
