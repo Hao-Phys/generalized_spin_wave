@@ -15,38 +15,53 @@ import numpy as np
 path_H = 0.5
 path_K = 0.0
 
-#q0 = np.array([0.34, 0.18, 0.0])
-q = np.zeros((3))
-q[0] = 4.0*path_H+2.0*path_K
-q[1] = path_K
-q[2] = 0.5*path_K-path_H
-q1 = np.array([0.23, -0.55, 0.0])
-q2 = np.array([1.33, 0.87, 0.0])
+q = np.array([-0.45, -0.44, 0.0])
+# =============================================================================
+# q = np.zeros((3))
+# q[0] = 4.0*path_H+2.0*path_K
+# q[1] = path_K
+# q[2] = 0.5*path_K-path_H
+# =============================================================================
+
+q1 = q
+q2 = np.array([0.11, 0.26, 0.0])
 q3 = -(q1+q2)
 
 tmp, ubov1 = GLSW.eigensystem(q1)
-print(tmp)
+print(tmp[3])
 tmp, ubov2 = GLSW.eigensystem(q2)
+print(tmp[7])
 tmp, ubov3 = GLSW.eigensystem(q3)
+print(tmp[7])
 
 tmp, ubovm1 = GLSW.eigensystem(-q1)
 tmp, ubovm2 = GLSW.eigensystem(-q2)
 tmp, ubovm3 = GLSW.eigensystem(-q3)
 
 num_sub = 4
+# =============================================================================
+# band3 = 7
+# band2 = 7
+# =============================================================================
+band1 = 0
 
-band1 = 1
-
+# =============================================================================
+# v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
+#                             ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
+# print(v1)
+# print(abs(v1))
+# =============================================================================
 
 for band2 in range(2*num_sub):
    for band3 in range(2*num_sub):
         
        
-       print("band2=", band2, "band3=", band3)
+       #print("band2=", band2, "band3=", band3)
        v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
                             ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
         #v2 = vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
-       #print("decay=", abs(v1))
+       if (band2 == band3):
+          print("decay=", abs(v1))
         
 
 

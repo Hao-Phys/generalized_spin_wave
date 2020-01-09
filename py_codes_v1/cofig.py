@@ -55,7 +55,7 @@ num_bond = 88
 
 # broadening factor
 
-broadening = 0.12
+broadening = 0.06
 
 # convergence factor, can be adjusted to the specific problem
 convergence = 0.1
