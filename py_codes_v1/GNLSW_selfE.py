@@ -102,14 +102,19 @@ def Sigma_decay(q, eq, ubov_q, ubov_mq):
         tmpmat1 = ek[:2*num_sub][:, None]
         tmpmat2 = eqmk[:2*num_sub][None, :]
         esum = tmpmat1 + tmpmat2
-        denomin = eq[:2*num_sub, None, None] - esum[None, :, :] + 1j*cgf
-        v_decay = vertex.V_cubic_decay(q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
-                                       ubov_mq, ubov_mk, ubov_mqmk)
+        #denomin = eq[:2*num_sub, None, None] - esum[None, :, :] + 1j*cgf
+
+        denomin = eq[None, None, :2*num_sub] - esum[:, :, None] + 1j*cgf
+
+        #v_decay = vertex.V_cubic_decay(q, k, qmk, ubov_q, ubov_k, ubov_qmk, \
+        #                               ubov_mq, ubov_mk, ubov_mqmk)
         
+        v_decay = vertex.V_cubic_decay(k, qmk, q, ubov_k, ubov_qmk, ubov_q, \
+                                       ubov_mk, ubov_mqmk, ubov_mq)
         Intmat = (v_decay.conj() * v_decay)/denomin
         # 0.5 is the symmetry factor, return to the "on-shell" self-energy 
         # for all bands
-        Intvec = 0.5*Intmat.sum(axis=(1, 2))  
+        Intvec = 0.5*Intmat.sum(axis=(0, 1))  
         
         
 
