@@ -17,7 +17,7 @@ import GLSW
 #from matplotlib import pyplot as plt
 #from matplotlib import cm
 
-K = 0.2
+K = 0.5
 inputpath1 = 'cuts/K=' + str(K) + '/path_domain1.dat'
 field = cf.field
 #inputpath2 = 'cuts/K=' + str(K) + '/path_domain2.dat'

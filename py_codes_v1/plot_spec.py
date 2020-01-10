@@ -46,15 +46,28 @@ ekmin = omega - Gamma
 
 fig, ax = plt.subplots()
 
-for band in range(2*num_sub):
+for band in range(2*num_sub-1):
 
     plt.plot(k, ek[:, band], 'b-')
     plt.plot(k, omega[:, band], 'r-.')
     plt.fill_between(k, ekmin[:, band], ekmax[:, band], \
             facecolor='wheat')
-    
+
+band = 2*num_sub-1    
+plt.plot(k, ek[:, band], 'b-', label='GLSW')
+plt.plot(k, omega[:, band], 'r-.', label='GNLSW')
+
+plt.fill_between(k, ekmin[:, band], ekmax[:, band], \
+        facecolor='wheat')
+
+plt.xticks([0, lenf/4-1, lenf/2-1, 3*lenf/4-1, lenf-1], \
+           [-2.0, -1.0, -0.0, 1.0, 2.0]) 
+ax.legend()
+ax.text(50, 6.5, r'$K=0.5$', fontsize=14)
 plt.xlim(0, lenf-1)
 plt.ylim(0, 7)
+plt.xlabel(r'$H$')
+plt.ylabel(r'$\omega$ meV')
 plt.show()
 
 
