@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : test_vertex.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 01.14.2020
+# Last Modified Date: 01.14.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Fri Dec  6 16:05:00 2019
 
@@ -9,13 +15,33 @@ Created on Fri Dec  6 16:05:00 2019
 import GNLSW_vertex as vertex
 import GLSW
 import numpy as np
-#import cofig as cf
-#import ex_info as exi
+# import cofig as cf
+# import ex_info as exi
 
-path_H = 0.5
-path_K = 0.0
 
-q = np.array([-0.45, -0.44, 0.0])
+
+#q = np.array([-0.45, -0.44, 0.0])
+q1 = np.array([0.0, 0.0, 0.0])
+q2 = np.array([0.0, 0.0, 0.0])
+q3 = -(q1+q2)
+#q3 = np.array([0.0, 0.0, 0.0])
+
+tmp, ubov1 = GLSW.eigensystem(q1)
+tmp, ubov2 = GLSW.eigensystem(q2)
+tmp, ubov3 = GLSW.eigensystem(q3)
+
+tmp, ubovm1 = GLSW.eigensystem(-q1)
+tmp, ubovm2 = GLSW.eigensystem(-q2)
+tmp, ubovm3 = GLSW.eigensystem(-q3)
+
+band1 = 1
+band2 = 0
+band3 = 4
+
+v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
+                        ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
+print(v1)
+print(abs(v1))
 # =============================================================================
 # q = np.zeros((3))
 # q[0] = 4.0*path_H+2.0*path_K
@@ -23,27 +49,33 @@ q = np.array([-0.45, -0.44, 0.0])
 # q[2] = 0.5*path_K-path_H
 # =============================================================================
 
-q1 = q
-q2 = np.array([0.11, 0.26, 0.0])
-q3 = -(q1+q2)
-
-tmp, ubov1 = GLSW.eigensystem(q1)
-print(tmp[3])
-tmp, ubov2 = GLSW.eigensystem(q2)
-print(tmp[7])
-tmp, ubov3 = GLSW.eigensystem(q3)
-print(tmp[7])
-
-tmp, ubovm1 = GLSW.eigensystem(-q1)
-tmp, ubovm2 = GLSW.eigensystem(-q2)
-tmp, ubovm3 = GLSW.eigensystem(-q3)
-
-num_sub = 4
 # =============================================================================
-# band3 = 7
-# band2 = 7
+# q1 = q
+# q2 = np.array([1.0, 1.0, 1.0])
+# q3 = -(q1+q2)
+# 
 # =============================================================================
-band1 = 0
+# =============================================================================
+# tmp, ubov1 = GLSW.eigensystem(q2)
+# #print(ubov1.conj().T @ cf.A_mat @ ubov1)
+# print(((ubov1[1, :]*ubov1[1, :]).conj()).sum())
+# =============================================================================
+#print(tmp[3])
+# tmp, ubov2 = GLSW.eigensystem(q2)
+# print(tmp[7])
+# tmp, ubov3 = GLSW.eigensystem(q3)
+# print(tmp[7])
+
+# tmp, ubovm1 = GLSW.eigensystem(-q1)
+# tmp, ubovm2 = GLSW.eigensystem(-q2)
+# tmp, ubovm3 = GLSW.eigensystem(-q3)
+
+# num_sub = 4
+# # =============================================================================
+# # band3 = 7
+# # band2 = 7
+# # =============================================================================
+# band1 = 0
 
 # =============================================================================
 # v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
@@ -52,16 +84,16 @@ band1 = 0
 # print(abs(v1))
 # =============================================================================
 
-for band2 in range(2*num_sub):
-   for band3 in range(2*num_sub):
+# for band2 in range(2*num_sub):
+   # for band3 in range(2*num_sub):
         
        
-       #print("band2=", band2, "band3=", band3)
-       v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
-                            ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
-        #v2 = vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
-       if (band2 == band3):
-          print("decay=", abs(v1))
+       # #print("band2=", band2, "band3=", band3)
+       # v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
+                            # ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
+        # #v2 = vertex.V1_cubic(band1, band2, band3, q1, q2, q3)
+       # if (band2 == band3):
+          # print("decay=", abs(v1))
         
 
 
