@@ -3,7 +3,7 @@
 # File              : test_vertex.py
 # Author            : Hao Zhang <hzhangphys@gmail.com>
 # Date              : 01.14.2020
-# Last Modified Date: 01.14.2020
+# Last Modified Date: 01.17.2020
 # Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
 # -*- coding: utf-8 -*-
 """
@@ -13,18 +13,24 @@ Created on Fri Dec  6 16:05:00 2019
 """
 
 import GNLSW_vertex as vertex
+import GNLSW_vertex_new as vertex_new
 import GLSW
 import numpy as np
+from matplotlib import pyplot as plt
 # import cofig as cf
 # import ex_info as exi
 
 
 
 #q = np.array([-0.45, -0.44, 0.0])
-q1 = np.array([0.0, 0.0, 0.0])
-q2 = np.array([0.0, 0.0, 0.0])
-q3 = -(q1+q2)
+q1 = np.array([-0.89, -0.79, 0.0])
+q2 = np.array([0.11, 0.26, 0.0])
+q3 = q1-q2
 #q3 = np.array([0.0, 0.0, 0.0])
+
+# q1 = np.array([0.0, 0.0, 0.0])
+# q2 = np.array([0.0, 0.0, 0.0])
+# q3 = q1-q2
 
 tmp, ubov1 = GLSW.eigensystem(q1)
 tmp, ubov2 = GLSW.eigensystem(q2)
@@ -34,14 +40,47 @@ tmp, ubovm1 = GLSW.eigensystem(-q1)
 tmp, ubovm2 = GLSW.eigensystem(-q2)
 tmp, ubovm3 = GLSW.eigensystem(-q3)
 
-band1 = 1
-band2 = 0
-band3 = 4
+# band1 = 1
+# band2 = 5
+# band3 = 7
 
-v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, -q1, \
-                        ubovm3, ubovm2, ubovm1, ubov3, ubov2, ubov1)
-print(v1)
-print(abs(v1))
+# for band1 in range(6):
+    # band2 = band1 + 2
+    # band3 = 4
+    # v1 = vertex.V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
+                        # ubov1, ubov2, ubov3, ubovm1, ubovm2, ubovm3)
+# v1 = vertex.V2_cubic_bm(band3, band2, band1, -q3, -q2, q1, ubovm3, ubovm2, ubov1, \
+                 # ubov3, ubov2, ubovm1)
+
+# print(v1)
+
+v1p = vertex_new.V_cubic_decay_bm(-q3, -q2, q1, ubovm3, ubovm2, ubov1, \
+        ubov3.conj(), ubov2.conj(), ubovm1.conj())
+
+
+#print(v1p[band3, band2, band1])
+
+# print(v1p[band1, band2, band3])
+res = np.zeros((64))
+band1 = 4
+counter = 0
+for band2 in range(8):
+    for band3 in range(8):
+        res[counter] = abs(v1p[band3, band2, band1]) 
+        # print(abs(v1p[band3, band2, band1]))
+        counter += 1
+
+
+data_ss = np.loadtxt('/Users/Hao/Desktop/iij_nonzeroq.txt')
+kk = range(64)
+plt.plot(kk, res, 'r*')
+plt.plot(kk, data_ss, 'b^')
+plt.show()
+#print(abs(v1p[band3, band2, band1]))1)
+
+#print(abs(v1))
+
+
 # =============================================================================
 # q = np.zeros((3))
 # q[0] = 4.0*path_H+2.0*path_K

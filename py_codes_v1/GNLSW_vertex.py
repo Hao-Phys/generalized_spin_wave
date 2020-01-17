@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : GNLSW_vertex.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 01.17.2020
+# Last Modified Date: 01.17.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Thu Dec  5 11:24:29 2019
 
@@ -476,6 +482,7 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
     for N in range(2):
         for Np in range(2):
            
+# =============================================================================
            for bond in range(12):
                 
                 bond_vec = delta_ij[:, bond]
@@ -504,9 +511,12 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                                -q3, -q2, -q1, bond_vec, 0)
                     
 
+# # =============================================================================
+# #                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
+# #                     + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()            
+# # =============================================================================
                 V2 += JJJ[bond, N, Np]*tFc1 + (JJJ[bond, N, Np]*tFd1).conj() \
-                    + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj()            
-                    
+                    + III[bond, N, Np]*tFc2 + (III[bond, N, Np]*tFd2).conj() 
                     
                 for M in range(2):
                     
@@ -528,14 +538,20 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                     tFd2 = Fd_symm(In, Inp, Jm, \
                                    band3, band2, band1, Ubov3, Ubovm2, Ubovm1, \
                                    -q3, -q2, -q1, bond_vec, 1)
+# =============================================================================
                     
 
+# =============================================================================
                     V2 += 2.0*(JJI[bond, N, Np, M]*tFc1 \
                                + (JJI[bond, N, Np, M]*tFd1).conj() \
                              + IIJ[bond, N, Np, M]*tFc2 \
                                + (IIJ[bond, N, Np, M]*tFd2).conj())                    
-                        
-            
+# =============================================================================
+# =============================================================================
+#                     V2 += 2.0*((JJI[bond, N, Np, M]*tFd1).conj() \
+#                              + (IIJ[bond, N, Np, M]*tFd2).conj())
+# =============================================================================
+                    
            for sublat in range(num_sub):
                 
                 In = num_sub*N + sublat
@@ -552,7 +568,7 @@ def V2_cubic_bm(band1, band2, band3, q1, q2, q3, \
                               -q3, -q2, -q1, 0.0, 0)
                 
                 V2 += factor1*tFc + factor2*tFd.conj()
-                
+                #V2 += factor2*tFd.conj()
     return V2
 
 
