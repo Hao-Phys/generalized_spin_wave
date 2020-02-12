@@ -1,3 +1,10 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+# File              : cofig.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 01.27.2020
+# Last Modified Date: 01.27.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
 import numpy as np
 import sys
 import os

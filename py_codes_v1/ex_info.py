@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : ex_info.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 02.06.2020
+# Last Modified Date: 02.06.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Mon Dec  2 17:14:49 2019
 
@@ -65,7 +71,14 @@ for bond in range(num_bond):
     tmp[2, 0] = -np.imag(gamma_ij[bond])*Jzpm[bond]
     tmp[2, 1] = np.real(gamma_ij[bond])*Jzpm[bond]  
     tmp[2, 2] = Jex[bond]*Delta[bond]
-    
+
+    # if bond in range(25, 28):
+        # tmpp = tmp[:3, :3]
+        # trans = np.array([[0.5, 0.5, 0],
+                          # [0.5/(1j), -(0.5/1j), 0],
+                          # [0, 0, 1.0]])
+        # tmp3 = trans.conj().T @ tmpp @ trans
+        # print(tmp3)
     sub1 = sub_idx[bond, 0]
     sub2 = sub_idx[bond, 1]
     

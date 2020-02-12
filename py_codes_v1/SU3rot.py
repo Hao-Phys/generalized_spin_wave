@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : SU3rot.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 02.01.2020
+# Last Modified Date: 02.11.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Mon Dec  2 16:56:40 2019
 
@@ -76,7 +82,22 @@ def R_O2O_mat(alpha1, alpha2, theta, phi):
 """ 
 SU(3) global to local frame rotation
 """
+def SU3mat(alpha1, alpha2, theta, phi):
 
+    mat = np.zeros((3, 3), dtype=complex)
+    mat[0, 0] = np.sin(theta) * np.cos(phi) * np.exp(1j*alpha1)
+    mat[0, 1] = np.cos(theta) * np.cos(phi) * np.exp(1j*alpha1)
+    mat[0, 2] = - np.sin(phi) * np.exp(-1j*alpha2)
+    
+    mat[1, 0] = np.sin(theta) * np.sin(phi) * np.exp(1j*alpha2)
+    mat[1, 1] = np.cos(theta) * np.sin(phi) * np.exp(1j*alpha2)
+    mat[1, 2] = np.cos(phi) * np.exp(-1j*alpha1)
+    
+    mat[2, 0] = np.cos(theta)
+    mat[2, 1] = - np.sin(theta)
+    mat[2, 2] = 0.0
+
+    return mat
 
 fname = cf.path + 'opt_angles.txt'
 angles = np.loadtxt(fname)
@@ -90,3 +111,4 @@ for ii in range(num_sub):
     theta  = angles[4*ii+2]
     phi    = angles[4*ii+3]
     R_mat[ii, :, :] = R_O2O_mat(alpha1, alpha2, theta, phi)
+

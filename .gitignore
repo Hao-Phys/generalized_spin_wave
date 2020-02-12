@@ -5,4 +5,7 @@ py_codes_v1/__pycache__
 *.pyc
 *.lyx~
 *.lyx#
+.DS_Store
 *.DS_Store
+*/.DS_Store
+*/*/.DS_store

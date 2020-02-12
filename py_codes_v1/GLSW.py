@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : GLSW.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 02.06.2020
+# Last Modified Date: 02.06.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Mon Dec  2 14:23:08 2019
 

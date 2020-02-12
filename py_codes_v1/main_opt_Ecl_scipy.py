@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : main_opt_Ecl_scipy.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 01.27.2020
+# Last Modified Date: 01.27.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Sun Dec  1 12:33:20 2019
 
@@ -40,7 +46,7 @@ for flag in range(4):
     ub0[flag*4+3] = 2*np.pi + 0.001
 
 # number of random number experiments
-N_rand = 100
+N_rand = 50
 
 for flag1 in range(N_rand):
     start_time = time.time()
