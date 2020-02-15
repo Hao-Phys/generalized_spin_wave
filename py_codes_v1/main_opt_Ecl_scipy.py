@@ -3,7 +3,7 @@
 # File              : main_opt_Ecl_scipy.py
 # Author            : Hao Zhang <hzhangphys@gmail.com>
 # Date              : 01.27.2020
-# Last Modified Date: 01.27.2020
+# Last Modified Date: 02.13.2020
 # Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
 # -*- coding: utf-8 -*-
 """
@@ -108,9 +108,9 @@ for flag2 in range(4):
     tmp4 = fg.fun_sz_sq(theta)
     mf_vals[flag2, 3] = tmp4
 
-fname = dirpath + 'opt_angles.txt'
+fname = dirpath + 'opt_angles1.txt'
 np.savetxt(fname, x_global_opt)
-fname1 = dirpath + 'mfvals.txt'
+fname1 = dirpath + 'mfvals1.txt'
 np.savetxt(fname1, mf_vals)
 
 # =============================================================================

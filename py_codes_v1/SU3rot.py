@@ -3,7 +3,7 @@
 # File              : SU3rot.py
 # Author            : Hao Zhang <hzhangphys@gmail.com>
 # Date              : 02.01.2020
-# Last Modified Date: 02.11.2020
+# Last Modified Date: 02.13.2020
 # Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
 # -*- coding: utf-8 -*-
 """
@@ -99,7 +99,7 @@ def SU3mat(alpha1, alpha2, theta, phi):
 
     return mat
 
-fname = cf.path + 'opt_angles.txt'
+fname = cf.path + 'opt_angles1.txt'
 angles = np.loadtxt(fname)
 num_sub = cf.num_sub
 
