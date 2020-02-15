@@ -1,0 +1,311 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+% File              : four_magnon_bound_states.tex
+% Author            : Hao Zhang <hzhangphys@gmail.com>
+% Date              : 01.20.2020
+% Last Modified Date: 02.13.2020
+% Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+\usepackage{newtxtext}\usepackage{xspace}\usepackage{amsbsy}
+\usepackage{bm}\usepackage{bbold}\usepackage{graphicx}
+\usepackage{color}\usepackage{xcolor}\usepackage{epsfig}\usepackage{rotate}\usepackage{fancyhdr}
+\usepackage{soul}
+\usepackage{physics}
+  
+\lhead{\large}
+\cfoot{\sc\thepage}
+\lfoot{}
+\rfoot{}
+\allowdisplaybreaks[2]
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman "times" "default"
+\font_sans "default" "default"
+\font_typewriter "mathptmx" "default"
+\font_math "newtxmath" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks false
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref section
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=blue,urlcolor=blue,citecolor=blue"
+\papersize default
+\use_geometry true
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\topmargin 2cm
+\bottommargin 2cm
+\headheight 1cm
+\headsep 4cm
+\footskip 1cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle fancyplain
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Four magnon bound states in Fe
+\begin_inset Formula $\text{I}_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Author
+Hao Zhang
+\end_layout
+
+\begin_layout Date
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Formation of four-magnon bound states
+\end_layout
+
+\begin_layout Standard
+In INS experiments on Fe
+\begin_inset Formula $\text{I}_{2}$
+\end_inset
+
+, we observe a flat mode that is not reproduced by the SU(3) linear spin
+ wave theory.
+ The energy of that mode is approximately two times that of the two-magnon
+ bound states (2MBS), therefore it should be a state made up of 
+\series bold
+two
+\series default
+ 2MBS.
+ Let's understand the formation of this state in real space: creating two
+ 2MBS on the nearest neighbor bond is energetically more favorable that
+ creating them far apart, because the nearest neighbor bond of Fe
+\begin_inset Formula $\text{I}_{2}$
+\end_inset
+
+ is ferromagnetic, which acts as an attractive potential to lower the energy
+ of the two 2MBS.
+ 
+\end_layout
+
+\begin_layout Section
+Quartic vertex rules
+\end_layout
+
+\begin_layout Standard
+We want to confirm the existence of four-magnon bound states (4MBS) in this
+ system.
+ In the context of the SU(3) spin wave theory, a 4MBS is a two-particle
+ state of the bare particles (Bogoliubov particles).
+ That is to say, we need to diagonalize the Hamiltonian in the Hilbert space
+ spanned by all possible two-particle states.
+ Let's fix the CoM momentum of the two-particle state to be 
+\begin_inset Formula $\bm{q}$
+\end_inset
+
+, the interacting Hamiltonian in the two-particle basis takes the form
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\mathcal{H}^{(4)}(\bm{q})=\sum_{\{\Upsilon_{i}\}}\sum_{\bm{q}_{1},\bm{q}_{2}}V^{(4)}(\bm{q},\bm{q}_{1},\bm{q}_{2};\{\Upsilon_{i}\})\beta_{\bm{q}_{1}-\bm{q},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{2}+\bm{q},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{3}}\beta_{\bm{q}_{1},\Upsilon_{4}},\label{eq:exact_ladder}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+where 
+\begin_inset Formula $V^{(4)}$
+\end_inset
+
+ is a 
+\begin_inset Formula $(2N_{\text{sub}}*N_{\text{site}})\times(2N_{\text{sub}}*N_{\text{site}})$
+\end_inset
+
+ matrix, whose exact form can be obtained by summing ladder diagrams to
+ the infinite orders in 
+\begin_inset Formula $1/(N\mathcal{S})$
+\end_inset
+
+.
+ To a first approximation, consider the leading order contribution to 
+\begin_inset Formula $V^{(4)}$
+\end_inset
+
+, denoted as 
+\begin_inset Formula $V^{(4,\text{eff})}$
+\end_inset
+
+, which gains contribution from the quartic Hamiltonian.
+ 
+\end_layout
+
+\begin_layout Standard
+In real space, the quartic Hamiltonian is written as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\sum_{\langle i,j\rangle}\mathcal{H}_{ij}^{(4)} & =\sum_{\alpha,\beta}(\tilde{H}_{ij})_{\alpha\beta}\bigg[\sum_{m,n,n'=-1,0}\big\{(f_{\alpha,m}^{(1)}f_{\beta,nn'}^{(3)}b_{im}b_{jn}^{\dagger}b_{jn}b_{jn'}+h.c.)\nonumber \\
+ & +(f_{\alpha,m}^{(1)}\big[f_{\beta,nn'}^{(3)}\big]^{*}b_{im}b_{jn'}^{\dagger}b_{jn}^{\dagger}b_{jn}+h.c.)\nonumber \\
+ & +(f_{\alpha,nn'}^{(3)}f_{\beta,m}^{(1)}b_{in}^{\dagger}b_{in}b_{in'}b_{jm}+h.c.)\nonumber \\
+ & +(f_{\alpha,nn'}^{(3)}\big[f_{\beta,m}^{(1)}\big]^{*}b_{in}^{\dagger}b_{in}b_{in'}b_{jm}^{\dagger}+h.c.)\big\}\nonumber \\
+ & +2\sum_{m,m'=-1,0}\sum_{n.n'=-1,0}\big\{(f_{\alpha,mm'}^{(2)}f_{\beta,nn'}^{(2)}b_{im}^{\dagger}b_{im'}b_{jn}^{\dagger}b_{jn'}+h.c.).
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Notice that the on-site terms do not contribute to the quartic Hamiltonian.
+ Applying Fourier transform on the boson operators we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename figs/digrams.png
+	lyxscale 20
+	scale 40
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Ladder diagram for a two-particle process with CoM momentum 
+\begin_inset Formula $\bm{q}$
+\end_inset
+
+: (a).
+ the exact ladder diagram, (b).
+ leading order contribution to the ladder diagram.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
