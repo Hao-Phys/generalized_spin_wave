@@ -3,7 +3,7 @@
 # File              : cofig.py
 # Author            : Hao Zhang <hzhangphys@gmail.com>
 # Date              : 01.27.2020
-# Last Modified Date: 01.27.2020
+# Last Modified Date: 02.13.2020
 # Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
 import numpy as np
 import sys
@@ -51,7 +51,7 @@ cwd = os.getcwd()
 path = cwd + '/gs_info/h=' + str(field) + 'T/'
 # the external field
 
-g_factor = 3.2
+g_factor = 3.8354   # 3.2
 mu_B = 5.788381E-2
 h_ext = g_factor*mu_B*field
 

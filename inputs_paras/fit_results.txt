@@ -1,0 +1,26 @@
+  #EXT PARAMETER                APPROXIMATE           
+  #NO.   NAME        VALUE          ERROR             
+      -2.6961       #0.29575         # J1pm        
+      -2.8718       #0.19508         # J1zz        
+      -1.9069       #0.39586         # J1pmpm      
+      -2.8726       #0.22555         # J1zpm       
+      0.31698       #0.26025         # J2pm        
+      0.71900       #constant        # J2zz     
+       2.0519       #0.33520         # J3pm        
+       4.7200       #constant        # J3zz     
+       0.0000       #constant        # J3pmpm   
+       0.0000       #constant        # J3zpm    
+      0.33400       #constant        # Jp0pm    
+       0.0000       #constant        # Jp0zz    
+      0.17000       #constant        # Jp1pm    
+       0.0000       #constant        # Jp1zz    
+      0.72000       #constant        # Jp2apm   
+      0.14300       #constant        # Jp2azz   
+       0.0000       #constant        # Jp2bpm   
+       0.0000       #constant        # Jp2bzz   
+       25.892       #0.88384         # D           
+       3.8354       #0.48683         # gfactor  
+       0.0000       #constant        # Field (T)
+      0.93226E-01   #0.21382E-01     # damping  
+      0.53442       #0.85511E-01     # scaling  
+      0.82599E-02   #0.14891E-01     # const. bk

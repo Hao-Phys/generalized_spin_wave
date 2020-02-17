@@ -1,0 +1,213 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4-1
+\begin_preamble
+\usepackage{mathptmx,newtxtext,newtxmath,xspace}
+\usepackage{amsbsy,bm,bbold}
+\usepackage{graphicx,color,xcolor,epsfig,rotate}
+\usepackage{fancyhdr}
+\usepackage{gensymb}
+\usepackage[colorlinks=true, 
+            linkcolor=blue, 
+            urlcolor=blue,
+            citecolor=blue]{hyperref}
+\usepackage{soul}
+\usepackage{physics}
+\pagestyle{fancyplain}
+\lhead{\large } 
+\cfoot{\sc\thepage} 
+\lfoot{} 
+\rfoot{}
+\allowdisplaybreaks[2]
+
+\newcommand{\iu}{{i\mkern1mu}}
+\newcommand{\one}{\mathbb{1}}
+%\renewcommand{\arraystretch}{1.5}
+\end_preamble
+\options aps,pra,amsmath,onecolumn,preprintnumber,superscriptaddress,showpacs,notitlepage
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Bogoliubov transform is written as 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+b_{\bm{q},(\Theta_{i},f)} & =\sum_{\Upsilon}\bigg(\mathcal{U}_{(\Theta_{i},f),\Upsilon}^{11}(\bm{q})\beta_{\Upsilon,\bm{q}}+\big[\mathcal{U}_{(\Theta_{i},f),\Upsilon}^{21}(\bar{\bm{q}})\big]^{*}\beta_{\Upsilon,\bar{\bm{q}}}^{\dagger}\bigg),\\
+b_{\bar{\bm{q}},(\Theta_{i},f)}^{\dagger} & =\sum_{\Upsilon}\bigg(\mathcal{U}_{(\Theta_{i},f),\Upsilon}^{21}(\bm{q})\beta_{\Upsilon,\bm{q}}+\big[\mathcal{U}_{(\Theta_{i},f),\Upsilon}^{11}(\bar{\bm{q}})\big]^{*}\beta_{\Upsilon,\bar{\bm{q}}}^{\dagger}\bigg).\label{eq:bogoliubov}
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\sum_{\langle i,j\rangle}b_{im}b_{jn}^{\dagger}b_{jn}b_{jn'} & =\sum_{\langle i,j\rangle}\sum_{\bm{q}_{i}\in\text{BZ}}b_{\bm{q}_{1},(\Theta_{i},m)}b_{\bar{\bm{q}}_{2},(\Theta_{j},n)}^{\dagger}b_{\bm{q}_{3},(\Theta_{j},n)}b_{\bm{q}_{4},(\Theta_{j},n')}e^{i(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{r}_{i}}e^{i(\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{\delta}_{ij}}\\
+ & =\sum_{\bm{q}_{i}\in\text{BZ}}\delta(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4}+n\bm{G})e^{i(\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{\delta}_{ij}}b_{\bm{q}_{1},(\Theta_{i},m)}b_{\bar{\bm{q}}_{2},(\Theta_{j},n)}^{\dagger}b_{\bm{q}_{3},(\Theta_{j},n)}b_{\bm{q}_{4},(\Theta_{j},n')}\\
+ & =\sum_{\Upsilon_{i}}\sum_{\bm{q}_{i}\in\text{BZ}}\delta(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4}+n\bm{G})e^{i(\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{\delta}_{ij}}\\
+ & *\bigg(\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bm{q}_{4},\Upsilon_{4}}\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bar{\bm{q}}_{3})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{4},\Upsilon_{4}}\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon}^{21}(\bar{\bm{q}}_{3})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\Upsilon_{1},\bm{q}_{1}}\beta_{\Upsilon_{2},\bm{q}_{2}}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\Upsilon_{1},\bm{q}_{1}}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bar{\bm{q}}_{3})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\Upsilon_{1},\bm{q}_{1}}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{4},\Upsilon_{4}}\bigg).
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let's normal-order above result, we have for instance
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{4},\Upsilon_{4}} & =\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}(\delta_{\bm{q}_{2},\bar{\bm{q}}_{3}}\delta_{\Upsilon_{2},\Upsilon_{3}}+\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}})\beta_{\bm{q}_{4},\Upsilon_{4}}\\
+ & =\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}}\beta_{\bm{q}_{4},\Upsilon_{4}}+\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{4},\Upsilon_{4}}\delta_{\bm{q}_{2},\bar{\bm{q}}_{3}}\delta_{\Upsilon_{2},\Upsilon_{3}}.
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The quadratic term corrects the generalized linear spin wave energy, which
+ affects the four-particle processes to a higher order in 
+\begin_inset Formula $N\mathcal{S}$
+\end_inset
+
+, therefore will be neglected in the following calculation.
+ 
+\end_layout
+
+\begin_layout Standard
+The normal-ordered results take the form 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\sum_{\langle i,j\rangle}b_{im}b_{jn}^{\dagger}b_{jn}b_{jn'} & \simeq\sum_{\Upsilon_{i}}\sum_{\bm{q}_{i}\in\text{BZ}}\delta(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4}+n\bm{G})e^{i(\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{\delta}_{ij}}\\
+ & *\bigg(\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bm{q}_{4},\Upsilon_{4}}\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bar{\bm{q}}_{3})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{2}}\beta_{\bm{q}_{4},\Upsilon_{4}}\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bm{q}_{2},\Upsilon_{2}}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bm{q}_{2})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bar{\bm{q}}_{3})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\beta_{\Upsilon_{1},\bm{q}_{1}}\beta_{\Upsilon_{2},\bm{q}_{2}}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{21}(\bar{\bm{q}}_{4})\big]^{*}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bar{\bm{q}}_{4},\Upsilon_{4}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\Upsilon_{1},\bm{q}_{1}}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{11}(\bm{q}_{1})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bar{\bm{q}}_{3})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bar{\bm{q}}_{3},\Upsilon_{3}}^{\dagger}\beta_{\Upsilon_{1},\bm{q}_{1}}\beta_{\bm{q}_{4},\Upsilon_{4}}\bigg).
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Change dummy variables, we have
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{align}
+\sum_{\langle i,j\rangle}b_{im}b_{jn}^{\dagger}b_{jn}b_{jn'} & \simeq\sum_{\Upsilon_{i}}\sum_{\bm{q}_{i}\in\text{BZ}}\delta(\bm{q}_{1}+\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4}+n\bm{G})e^{i(\bm{q}_{2}+\bm{q}_{3}+\bm{q}_{4})\cdot\bm{\delta}_{ij}}\\
+ & *\bigg(\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{21}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\\
+ & +\big[\mathcal{U}_{(\Theta_{i},m),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{4}}^{21}(\bm{q}_{4})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{21}(\bar{\bm{q}}_{2})\big]^{*}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{3}}^{11}(\bm{q}_{3})\mathcal{U}_{(\Theta_{j},n),\Upsilon_{4}}^{21}(\bm{q}_{4})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{2}}^{21}(\bar{\bm{q}}_{2})\big]^{*}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{4}}^{11}(\bm{q}_{4})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\mathcal{U}_{(\Theta_{j},n),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\\
+ & +\mathcal{U}_{(\Theta_{i},m),\Upsilon_{3}}^{11}(\bm{q}_{3})\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{2}}^{11}(\bar{\bm{q}}_{2})\big]^{*}\big[\mathcal{U}_{(\Theta_{j},n),\Upsilon_{1}}^{21}(\bar{\bm{q}}_{1})\big]^{*}\mathcal{U}_{(\Theta_{j},n'),\Upsilon_{4}}^{11}(\bm{q}_{4})\bigg)\\
+ & *\beta_{\bar{\bm{q}}_{1},\Upsilon_{1}}^{\dagger}\beta_{\bar{\bm{q}}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{3},\Upsilon_{4}}\beta_{\bm{q}_{4},\Upsilon_{4}}.
+\end{align}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\end_body
+\end_document

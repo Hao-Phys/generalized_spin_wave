@@ -167,6 +167,14 @@ two
 \end_layout
 
 \begin_layout Section
+Exact diagonalization
+\end_layout
+
+\begin_layout Standard
+
+\end_layout
+
+\begin_layout Section
 Quartic vertex rules
 \end_layout
 
@@ -187,7 +195,7 @@ We want to confirm the existence of four-magnon bound states (4MBS) in this
 \begin_layout Standard
 \begin_inset Formula 
 \begin{equation}
-\mathcal{H}^{(4)}(\bm{q})=\sum_{\{\Upsilon_{i}\}}\sum_{\bm{q}_{1},\bm{q}_{2}}V^{(4)}(\bm{q},\bm{q}_{1},\bm{q}_{2};\{\Upsilon_{i}\})\beta_{\bm{q}_{1}-\bm{q},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}_{2}+\bm{q},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}_{2},\Upsilon_{3}}\beta_{\bm{q}_{1},\Upsilon_{4}},\label{eq:exact_ladder}
+\mathcal{H}^{(4)}(\bm{q})=\sum_{\{\Upsilon_{i}\}}\sum_{\bm{q}_{1},\bm{q}_{2}}V^{(4)}(\bm{q},\bm{q}_{1},\bm{q}_{2};\{\Upsilon_{i}\})\beta_{\bm{q}+\bm{q}_{2},\Upsilon_{1}}^{\dagger}\beta_{\bm{q}-\bm{q}_{2},\Upsilon_{2}}^{\dagger}\beta_{\bm{q}+\bm{q}_{1},\Upsilon_{3}}\beta_{\bm{q}-\bm{q}_{1},\Upsilon_{4}},\label{eq:exact_ladder}
 \end{equation}
 
 \end_inset
@@ -200,7 +208,7 @@ where
 \begin_inset Formula $V^{(4)}$
 \end_inset
 
- is a 
+can be represented by a 
 \begin_inset Formula $(2N_{\text{sub}}*N_{\text{site}})\times(2N_{\text{sub}}*N_{\text{site}})$
 \end_inset
 
@@ -210,7 +218,11 @@ where
 \end_inset
 
 .
- To a first approximation, consider the leading order contribution to 
+ The basis state of above matrix is 
+\begin_inset Formula $\beta_{\bm{q}+\bm{q}',\Upsilon_{1}}^{\dagger}\beta_{\bm{q}-\bm{q}',\text{\ensuremath{\Upsilon_{2}}}}^{\dagger}|0\rangle$
+\end_inset
+
+.To a first approximation, consider the leading order contribution to 
 \begin_inset Formula $V^{(4)}$
 \end_inset
 
@@ -243,7 +255,7 @@ In real space, the quartic Hamiltonian is written as
 
 \begin_layout Standard
 Notice that the on-site terms do not contribute to the quartic Hamiltonian.
- Applying Fourier transform on the boson operators we have
+ Applying Fourier transform on the boson operators we have 
 \end_layout
 
 \begin_layout Standard
@@ -270,8 +282,8 @@ centering
 
 \begin_layout Plain Layout
 \begin_inset Graphics
-	filename figs/digrams.png
-	lyxscale 20
+	filename figs/diagrams.png
+	lyxscale 40
 	scale 40
 
 \end_inset

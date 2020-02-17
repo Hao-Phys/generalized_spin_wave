@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# File              : gs_jobs.py
+# Author            : Hao Zhang <hzhangphys@gmail.com>
+# Date              : 02.13.2020
+# Last Modified Date: 02.13.2020
+# Last Modified By  : Hao Zhang <hzhangphys@gmail.com>
+# -*- coding: utf-8 -*-
 """
 Created on Sat Nov 30 15:36:05 2019
 
@@ -16,8 +22,8 @@ xs = range(lenh)
 
 def sub_jobs(ff):
     hh = h[ff]
-    inFile = 'gs_info/h=' + str(hh) + 'T/input.txt'
-    outFile = 'gs_info/h=' + str(hh) + 'T/output.txt'
+    inFile = '../inputs_paras/h_' + str(hh) + 'T/input1.txt'
+    outFile = '../inputs_paras/h_' + str(hh) + 'T/output1.txt'
     cmd = 'python3 main_opt_Ecl_scipy.py ' + inFile +'>' + outFile
     os.system(cmd)
  
